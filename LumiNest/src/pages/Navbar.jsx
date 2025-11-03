@@ -6,6 +6,7 @@ export default function Navbar() {
   const [menuHovered, setMenuHovered] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [dropdownTimeout, setDropdownTimeout] = useState(null);
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const menuLeft = [
     {
@@ -64,7 +65,7 @@ export default function Navbar() {
       className="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] z-50
       bg-[#0f0f0f]/80 backdrop-blur-2xl
       rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.6)]
-      px-8 py-4 flex items-center justify-between"
+      px-8 py-2 flex items-center justify-between"
     >
       
    {/* BUY SELL RENT  */}
@@ -127,7 +128,7 @@ export default function Navbar() {
       {/* LUMINEST LOGO */}
       <Link
         to="/"
-        className="absolute left-1/2 -translate-x-1/2 text-6xl font-semibold tracking-tight text-white select-none hover:scale-105 transition-transform duration-200"
+        className="absolute left-1/2 -translate-x-1/2 text-3xl font-semibold tracking-tight text-white select-none hover:scale-105 transition-transform duration-200"
       >
         <span className="bg-linear-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent">
           LumiNest
@@ -201,90 +202,91 @@ export default function Navbar() {
   ></span>
 </Link>
         {/* PROFILE ICON */}
-        <div className="relative">
-          <div
-            className="p-3 rounded-full bg-neutral-800/80 hover:bg-neutral-700 transition-all duration-200 
-                     border border-neutral-700 cursor-pointer hover:scale-105 hover:shadow-lg"
-            onClick={() => setProfileOpen((prev) => !prev)}
-          >
-            <User className="w-4 h-4 text-gray-200" />
+       <div className="relative">
+  <div
+    className="p-3 rounded-full bg-neutral-800/80 hover:bg-neutral-700 transition-all duration-200 
+               border border-neutral-700 cursor-pointer hover:scale-105 hover:shadow-lg"
+    onClick={() => setProfileOpen((prev) => !prev)}
+  >
+    <User className="w-4 h-4 text-gray-200" />
+  </div>
+
+  {profileOpen && (
+    <div
+      className="absolute top-[calc(100%+20px)] right-0 w-56 
+                 bg-[#0a0a0a]/95 backdrop-blur-xl
+                 border border-neutral-700/70 
+                 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
+                 overflow-hidden animate-fadeIn z-9999"
+    >
+      <div className="absolute -top-2 right-6 w-4 h-4 bg-[#0a0a0a]/95 border-l border-t border-neutral-700/70 rotate-45"></div>
+
+      <div className="px-5 py-4 bg-linear-to-r from-neutral-900/50 to-neutral-800/50 border-b border-neutral-700/50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-linear-to-r from-gray-600 to-gray-400 rounded-full flex items-center justify-center">
+            <User size={20} className="text-white" />
           </div>
-
-          {profileOpen && (
-            <div
-              className="absolute top-[calc(100%+20px)] right-0 w-56 
-                         bg-[#0a0a0a]/95 backdrop-blur-xl
-                         border border-neutral-700/70 
-                         rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
-                         overflow-hidden animate-fadeIn z-9999"
-            >
-              <div className="absolute -top-2 right-6 w-4 h-4 bg-[#0a0a0a]/95 border-l border-t border-neutral-700/70 rotate-45"></div>
-
-              <div className="px-5 py-4 bg-linear-to-r from-neutral-900/50 to-neutral-800/50 border-b border-neutral-700/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-linear-to-r from-gray-600 to-gray-400 rounded-full flex items-center justify-center">
-                    <User size={20} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-white">Guest User</p>
-                    <p className="text-xs text-gray-400">Not logged in</p>
-                  </div>
-                </div>
-              </div>
-
-              {[
-                {
-                  to: "/profile",
-                  icon: <UserCircle size={16} />,
-                  label: "Profile",
-                  description: "Manage your account",
-                },
-                {
-                  to: "/settings",
-                  icon: <Settings size={16} />,
-                  label: "Settings",
-                  description: "Preferences & privacy",
-                },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.to}
-                  onClick={() => setProfileOpen(false)}
-                  className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
-                           hover:bg-white/10 hover:text-white transition-all duration-200
-                           border-b border-neutral-800/50 last:border-b-0"
-                >
-                  <span className="text-gray-400 group-hover/profile:text-white group-hover/profile:scale-110 transition-all duration-200">
-                    {item.icon}
-                  </span>
-                  <div className="flex-1">
-                    <div className="font-medium">{item.label}</div>
-                    <div className="text-xs text-gray-500 group-hover/profile:text-gray-400">
-                      {item.description}
-                    </div>
-                  </div>
-                  <ChevronRight
-                    size={14}
-                    className="text-gray-600 group-hover/profile:text-gray-300 group-hover/profile:translate-x-1 transition-all duration-200"
-                  />
-                </Link>
-              ))}
-
-              <button
-                onClick={() => setProfileOpen(false)}
-                className="w-full group/logout flex items-center gap-3 px-5 py-3 text-sm 
-                           text-red-400 hover:bg-red-500/10 hover:text-red-300 
-                           transition-all duration-200"
-              >
-                <LogOut
-                  size={16}
-                  className="group-hover/logout:scale-110 transition-transform duration-200"
-                />
-                <span className="font-medium">Logout</span>
-              </button>
-            </div>
-          )}
+          <div>
+            <p className="text-sm font-medium text-white">
+              {isLoggedIn ? "John Doe" : "Guest User"}
+            </p>
+            <p className="text-xs text-gray-400">
+              {isLoggedIn ? "john@example.com" : "Not logged in"}
+            </p>
+          </div>
         </div>
+      </div>
+
+      {/* Dropdown items */}
+      {isLoggedIn ? (
+        <>
+          <Link
+            to="/profile"
+            onClick={() => setProfileOpen(false)}
+            className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
+                       hover:bg-white/10 hover:text-white transition-all duration-200
+                       border-b border-neutral-800/50"
+          >
+            <UserCircle size={16} />
+            <div className="flex-1">
+              <div className="font-medium">Profile</div>
+              <div className="text-xs text-gray-500">Manage your account</div>
+            </div>
+            <ChevronRight size={14} className="text-gray-600 group-hover/profile:text-gray-300 transition-all" />
+          </Link>
+
+          <button
+            onClick={() => {
+              setIsLoggedIn(false);
+              setProfileOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-5 py-3 text-sm 
+                       text-red-400 hover:bg-red-500/10 hover:text-red-300 
+                       transition-all duration-200"
+          >
+            <LogOut size={16} />
+            <span className="font-medium">Logout</span>
+          </button>
+        </>
+      ) : (
+        <Link
+          to="/login"
+          onClick={() => setProfileOpen(false)}
+          className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
+                     hover:bg-white/10 hover:text-white transition-all duration-200"
+        >
+          <UserCircle size={16} />
+          <div className="flex-1">
+            <div className="font-medium">Login</div>
+            <div className="text-xs text-gray-500">Access your account</div>
+          </div>
+          <ChevronRight size={14} className="text-gray-600 group-hover/profile:text-gray-300 transition-all" />
+        </Link>
+      )}
+    </div>
+  )}
+</div>
+
       </div>
     </nav>
   );

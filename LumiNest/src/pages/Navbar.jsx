@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import { Link } from "react-router-dom";
 import { User, LogOut, Settings, UserCircle, ChevronRight } from "lucide-react";
 
@@ -8,13 +8,14 @@ export default function Navbar() {
   const [dropdownTimeout, setDropdownTimeout] = useState(null);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
   const menuLeft = [
     {
       title: "Buy",
       links: [
-        { label: "Apartments", to: "/buy/apartments", description: "Modern residential spaces" },
-        { label: "Villas", to: "/buy/villas", description: "Luxury independent homes" },
-        { label: "Plots", to: "/buy/plots", description: "Land for development" },
+        { label: "Apartments", to: "/apartments", description: "Modern residential spaces" },
+        { label: "Villas", to: "/villas", description: "Luxury independent homes" },
+        { label: "Plots", to: "/plots", description: "Land for development" },
       ],
     },
     {
@@ -62,10 +63,13 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <nav
-      className="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] z-50
-      bg-[#0f0f0f]/80 backdrop-blur-2xl
-      rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.6)]
-      px-8 py-2 flex items-center justify-between"
+  className="fixed top-0 left-1/2 -translate-x-1/2 w-full z-50
+bg-linear-to-br from-[#1a1a1a]/70 to-[#0d0d0d]/50 
+backdrop-blur-5xl
+shadow-[0_2px_20px_rgba(0,0,0,0.4)]
+px-10 py-3 flex items-center justify-between
+transition-all duration-300"
+
     >
       
    {/* BUY SELL RENT  */}
@@ -78,7 +82,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
             onMouseLeave={handleMenuLeave}
           >
             <Link
-              to={`/${item.title.toLowerCase()}`}
+
               className="text-gray-300 hover:text-white transition-all duration-200 py-2 px-1"
             >
               {item.title}
@@ -94,7 +98,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
                 onMouseEnter={handleDropdownEnter}
                 onMouseLeave={handleDropdownLeave}
               >
-                <div className="absolute -top-2 left-6 w-4 h-4 bg-[#0a0a0a]/95 border-l border-t border-neutral-700/60 rotate-45"></div>
+                <div className="absolute -top-2 left-6 w-4 h-4 bg-linear-to-r from-neutral-900/50 to-neutral-800/50  border-l border-t border-neutral-700/60 rotate-45"></div>
                 {item.links.map((link) => (
                   <Link
                     key={link.label}
@@ -128,11 +132,12 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
       {/* LUMINEST LOGO */}
       <Link
         to="/"
-        className="absolute left-1/2 -translate-x-1/2 text-3xl font-semibold tracking-tight text-white select-none hover:scale-105 transition-transform duration-200"
+        className="absolute left-1/2 -translate-x-1/2 text-4xl font-semibold tracking-tight text-white select-none hover:scale-105 transition-transform duration-200"
       >
-        <span className="bg-linear-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent">
-          LumiNest
-        </span>
+       <span className="bg-linear-to-r from-[#ba9a2f] via-[#b98a5a] to-[#8b5e3c] bg-clip-text text-transparent">
+  LumiNest
+</span>
+
       </Link>
 
       <div className="flex items-center space-x-6">
@@ -187,8 +192,6 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
   </div>
 )}
 
-
-
         </div>
 {/* CONTACT BUTTON */}
      <Link
@@ -197,7 +200,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
 >
   Contact
   <span
-    className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white 
+    className="absolute left-0 bottom-1 w-0 h-0.5 bg-white 
                transition-all duration-300 group-hover:w-full"
   ></span>
 </Link>
@@ -213,7 +216,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   {profileOpen && (
     <div
-      className="absolute top-[calc(100%+20px)] right-0 w-56 
+      className="absolute top-[calc(100%+15px)] right-0 w-55
                  bg-[#0a0a0a]/95 backdrop-blur-xl
                  border border-neutral-700/70 
                  rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
@@ -275,7 +278,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
           className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
                      hover:bg-white/10 hover:text-white transition-all duration-200"
         >
-          <UserCircle size={16} />
+          <UserCircle size={20} />
           <div className="flex-1">
             <div className="font-medium">Login</div>
             <div className="text-xs text-gray-500">Access your account</div>

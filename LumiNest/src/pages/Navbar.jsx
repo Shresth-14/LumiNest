@@ -6,7 +6,7 @@ export default function Navbar() {
   const [menuHovered, setMenuHovered] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [dropdownTimeout, setDropdownTimeout] = useState(null);
-const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   const menuLeft = [
@@ -91,7 +91,7 @@ transition-all duration-300"
 
             {item.links.length > 0 && menuHovered === item.title && (
               <div
-                className="absolute top-10 left-0 w-64
+                className="absolute top-10 left-0 w-300
                 bg-[#0a0a0a]/95 backdrop-blur-xl border border-neutral-700/60
                 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
                 py-3 animate-fadeIn overflow-hidden"

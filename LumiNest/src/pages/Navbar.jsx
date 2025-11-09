@@ -15,28 +15,15 @@ import {
   Search,
 } from "lucide-react";
 
-/**
- * Navbar.jsx
- * - Left: Logo + small search
- * - Middle: Buy / Sell / Rent (desktop) -> full-width text-only mega dropdowns
- * - Right: Contact + Login (if logged out) OR Profile (if logged in) + hamburger (mobile)
- * - Mobile: right-side drawer with collapsible sections
- * - Smooth fade + slide-down animations for dropdowns
- *
- * Requirements: Tailwind CSS + lucide-react + react-router-dom
- */
-
 export default function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null); // "buy" | "sell" | "rent" | null
+  const [openMenu, setOpenMenu] = useState(null); 
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSectionOpen, setMobileSectionOpen] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // demo toggle; wire to auth in real app
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const hoverTimeout = useRef(null);
   const profileRef = useRef(null);
 
-  // Inject custom keyframes for animations
   React.useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -99,7 +86,6 @@ export default function Navbar() {
     },
   ];
 
-  // ---- Hover/open helpers for desktop menus (avoid flicker) ----
   const openDesktopMenu = (id) => {
     if (hoverTimeout.current) {
       clearTimeout(hoverTimeout.current);
@@ -113,7 +99,6 @@ export default function Navbar() {
     hoverTimeout.current = setTimeout(() => setOpenMenu(null), delay);
   };
 
-  // close profile dropdown when clicking outside
   useEffect(() => {
     const onDocClick = (e) => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
@@ -124,7 +109,6 @@ export default function Navbar() {
     return () => document.removeEventListener("click", onDocClick);
   }, []);
 
-  // Escape closes menus
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") {
@@ -137,7 +121,6 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  // keyboard toggle for top-level buttons (Enter/Space)
   const handleKeyToggle = (e, id) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -152,7 +135,6 @@ export default function Navbar() {
                    shadow-[0_8px_30px_rgba(0,0,0,0.6)] px-4 md:px-8 lg:px-12 py-3 flex items-center justify-between"
         aria-label="Main navigation"
       >
-        {/* LEFT: Logo + small search */}
         <div className="flex items-center gap-4">
           <Link to="/" className="text-2xl font-semibold text-white select-none">
             LumiNest
@@ -168,7 +150,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* MIDDLE: Desktop menu */}
         <div className="hidden lg:flex items-center gap-6 text-gray-300 font-medium">
           {menuLeft.map((item) => (
             <div
@@ -196,11 +177,9 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              {/* FULL-WIDTH MEGA DROPDOWN */}
               {openMenu === item.id && (
                 <div className="fixed top-16 left-0 w-screen z-40 pointer-events-auto">
                   
-                  {/* Animated container */}
                   <div
                     className="relative w-full"
                     style={{ 
@@ -216,7 +195,6 @@ export default function Navbar() {
                   >
                     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 bg-[rgba(12,12,12,0.98)] border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                        {/* categories */}
                         <div className="md:col-span-4">
                           <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">
                             {item.title} Categories
@@ -241,7 +219,6 @@ export default function Navbar() {
                           </nav>
                         </div>
 
-                        {/* center area (featured options) */}
                         <div className="md:col-span-5">
                           <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Featured Options</h4>
                           <div className="grid grid-cols-2 gap-3">
@@ -280,7 +257,6 @@ export default function Navbar() {
                           </div>
                         </div>
 
-                        {/* right: quick links + CTA */}
                         <div className="md:col-span-3">
                           <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Quick Actions</h4>
                           <div className="flex flex-col gap-3">
@@ -324,7 +300,6 @@ export default function Navbar() {
                             </Link>
                           </div>
 
-                          {/* Featured stats */}
                           <div className="mt-6 grid grid-cols-2 gap-3">
                             <div className="text-center p-3 rounded-lg bg-white/5">
                               <div className="text-lg font-bold text-white">500+</div>
@@ -340,7 +315,6 @@ export default function Navbar() {
                     </div>
                   </div>
 
-                  {/* overlay to close when clicked outside */}
                   <div
                     className="fixed inset-0 z-30"
                     onClick={() => setOpenMenu(null)}
@@ -352,9 +326,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* RIGHT side */}
         <div className="flex items-center gap-3">
-          {/* Contact */}
           <Link
             to="/contact"
             className="hidden sm:inline text-sm text-gray-300 hover:text-white px-1 py-2 transition-colors"
@@ -362,7 +334,6 @@ export default function Navbar() {
             Contact
           </Link>
 
-          {/* Login or Profile */}
           {!isLoggedIn ? (
             <Link
               to="/login"
@@ -389,7 +360,7 @@ export default function Navbar() {
                 >
                   <div className="px-4 py-3 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
                         <User size={16} className="text-white" />
                       </div>
                       <div>
@@ -459,7 +430,6 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden p-2 rounded-md bg-neutral-800/60 hover:bg-neutral-700 transition"
             onClick={() => setMobileOpen(true)}
@@ -470,7 +440,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* MOBILE Drawer (right) */}
       {mobileOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/40"
@@ -503,7 +472,6 @@ export default function Navbar() {
         </div>
 
         <div className="p-4 space-y-4 overflow-auto h-[calc(100%-64px)]">
-          {/* Mobile search */}
           <div className="flex items-center gap-2">
             <div className="flex-1">
               <input
@@ -516,7 +484,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Collapsible Buy/Sell/Rent */}
           <div className="space-y-3">
             {menuLeft.map((section) => {
               const open = mobileSectionOpen === section.id;
@@ -584,7 +551,7 @@ export default function Navbar() {
           {/* Account area */}
           <div className="pt-4 border-t border-neutral-800">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
                 <User size={18} className="text-white" />
               </div>
               <div>

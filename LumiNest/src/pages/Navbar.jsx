@@ -389,7 +389,7 @@ export default function Navbar() {
                 >
                   <div className="px-4 py-3 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
                         <User size={16} className="text-white" />
                       </div>
                       <div>
@@ -584,7 +584,7 @@ export default function Navbar() {
           {/* Account area */}
           <div className="pt-4 border-t border-neutral-800">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
                 <User size={18} className="text-white" />
               </div>
               <div>

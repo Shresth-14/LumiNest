@@ -1,296 +1,624 @@
-import { useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { User, LogOut, Settings, UserCircle, ChevronRight } from "lucide-react";
+import {
+  User,
+  LogOut,
+  Settings,
+  UserCircle,
+  ChevronRight,
+  Home,
+  Building,
+  Bed,
+  Heart,
+  Menu,
+  X,
+  Search,
+} from "lucide-react";
+
+/**
+ * Navbar.jsx
+ * - Left: Logo + small search
+ * - Middle: Buy / Sell / Rent (desktop) -> full-width text-only mega dropdowns
+ * - Right: Contact + Login (if logged out) OR Profile (if logged in) + hamburger (mobile)
+ * - Mobile: right-side drawer with collapsible sections
+ * - Smooth fade + slide-down animations for dropdowns
+ *
+ * Requirements: Tailwind CSS + lucide-react + react-router-dom
+ */
 
 export default function Navbar() {
-  const [menuHovered, setMenuHovered] = useState(null);
+  const [openMenu, setOpenMenu] = useState(null); // "buy" | "sell" | "rent" | null
   const [profileOpen, setProfileOpen] = useState(false);
-  const [dropdownTimeout, setDropdownTimeout] = useState(null);
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSectionOpen, setMobileSectionOpen] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // demo toggle; wire to auth in real app
 
+  const hoverTimeout = useRef(null);
+  const profileRef = useRef(null);
+
+  // Inject custom keyframes for animations
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes chevronBounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-2px);
+        }
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   const menuLeft = [
     {
+      id: "buy",
       title: "Buy",
+      icon: <Home size={16} />,
       links: [
-        { label: "Apartments", to: "/apartments", description: "Modern residential spaces" },
-        { label: "Villas", to: "/villas", description: "Luxury independent homes" },
-        { label: "Plots", to: "/plots", description: "Land for development" },
+        { label: "Apartments", to: "/apartments" },
+        { label: "Villas", to: "/villas" },
+        { label: "Plots", to: "/plots" },
+        { label: "New Projects", to: "/projects" },
       ],
     },
     {
+      id: "sell",
       title: "Sell",
+      icon: <Building size={16} />,
       links: [
-        { label: "Post Property", to: "/sell/post", description: "List your property" },
-        { label: "Pricing Plans", to: "/sell/plans", description: "Choose your plan" },
+        { label: "Post Property", to: "/sell/post" },
+        { label: "Pricing Plans", to: "/sell/plans" },
+        { label: "Seller Guide", to: "/sell/guide" },
       ],
     },
     {
+      id: "rent",
       title: "Rent",
+      icon: <Bed size={16} />,
       links: [
-        { label: "Homes for Rent", to: "/rent/homes", description: "Residential rentals" },
-        { label: "Commercial Spaces", to: "/rent/commercial", description: "Office & retail spaces" },
+        { label: "Homes for Rent", to: "/rent/homes" },
+        { label: "Commercial Spaces", to: "/rent/commercial" },
+        { label: "PG & Shared", to: "/rent/pg" },
       ],
     },
   ];
 
-  const cities = [
-    "Delhi", "Gurgaon", "Noida", "Mumbai", "Pune", "Bangalore", "Hyderabad", "Chennai",
-    "Kolkata", "Ahmedabad", "Jaipur", "Chandigarh", "Lucknow", "Indore", "Nagpur",
-    "Surat", "Kochi", "Bhopal", "Goa", "Dehradun", "Amritsar", "Visakhapatnam",
-    "Vadodara", "Coimbatore", "Mysuru", "Trivandrum", "Patna", "Ranchi", "Shimla",
-    "Udaipur", "Jodhpur", "Raipur"
-  ];
-
-  const handleMenuEnter = (title) => {
-    if (dropdownTimeout) clearTimeout(dropdownTimeout);
-    setMenuHovered(title);
+  // ---- Hover/open helpers for desktop menus (avoid flicker) ----
+  const openDesktopMenu = (id) => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current);
+      hoverTimeout.current = null;
+    }
+    setOpenMenu(id);
   };
 
-  const handleMenuLeave = () => {
-    const timeout = setTimeout(() => setMenuHovered(null), 150);
-    setDropdownTimeout(timeout);
+  const closeDesktopMenu = (delay = 150) => {
+    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+    hoverTimeout.current = setTimeout(() => setOpenMenu(null), delay);
   };
 
-  const handleDropdownEnter = () => {
-    if (dropdownTimeout) clearTimeout(dropdownTimeout);
-  };
+  // close profile dropdown when clicking outside
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, []);
 
-  const handleDropdownLeave = () => {
-    const timeout = setTimeout(() => setMenuHovered(null), 100);
-    setDropdownTimeout(timeout);
+  // Escape closes menus
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setOpenMenu(null);
+        setProfileOpen(false);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  // keyboard toggle for top-level buttons (Enter/Space)
+  const handleKeyToggle = (e, id) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setOpenMenu((prev) => (prev === id ? null : id));
+    }
   };
 
   return (
-    <nav
-  className="fixed top-0 left-1/2 -translate-x-1/2 w-full z-50
-bg-linear-to-br from-[#1a1a1a]/70 to-[#0d0d0d]/50 
-backdrop-blur-5xl
-shadow-[0_2px_20px_rgba(0,0,0,0.4)]
-px-10 py-3 flex items-center justify-between
-transition-all duration-300"
-
-    >
-      
-   {/* BUY SELL RENT  */}
-      <div className="hidden md:flex items-center space-x-6 text-gray-300 font-medium">
-        {menuLeft.map((item) => (
-          <div
-            key={item.title}
-            className="relative group"
-            onMouseEnter={() => handleMenuEnter(item.title)}
-            onMouseLeave={handleMenuLeave}
-          >
-            <Link
-
-              className="text-gray-300 hover:text-white transition-all duration-200 py-2 px-1"
-            >
-              {item.title}
-            </Link>
-            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-white to-gray-300 transition-all duration-300 group-hover:w-full rounded-full"></span>
-
-            {item.links.length > 0 && menuHovered === item.title && (
-              <div
-                className="absolute top-10 left-0 w-300
-                bg-[#0a0a0a]/95 backdrop-blur-xl border border-neutral-700/60
-                rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
-                py-3 animate-fadeIn overflow-hidden"
-                onMouseEnter={handleDropdownEnter}
-                onMouseLeave={handleDropdownLeave}
-              >
-                <div className="absolute -top-2 left-6 w-4 h-4 bg-linear-to-r from-neutral-900/50 to-neutral-800/50  border-l border-t border-neutral-700/60 rotate-45"></div>
-                {item.links.map((link) => (
-                  <Link
-                    key={link.label}
-                    to={link.to}
-                    className="group/item flex items-center justify-between px-5 py-3 text-sm text-gray-300 
-                    hover:bg-white/10 hover:text-white transition-all duration-200
-                    border-b border-neutral-800/50 last:border-b-0"
-                  >
-                    <div className="flex-1">
-                      <div className="font-medium group-hover/item:text-white transition-colors">
-                        {link.label}
-                      </div>
-                      {link.description && (
-                        <div className="text-xs text-gray-500 group-hover/item:text-gray-400 mt-0.5">
-                          {link.description}
-                        </div>
-                      )}
-                    </div>
-                    <ChevronRight
-                      size={14}
-                      className="text-gray-600 group-hover/item:text-gray-300 group-hover/item:translate-x-1 transition-all duration-200"
-                    />
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* LUMINEST LOGO */}
-      <Link
-        to="/"
-        className="absolute left-1/2 -translate-x-1/2 text-4xl font-semibold tracking-tight text-white select-none hover:scale-105 transition-transform duration-200"
+    <>
+      <nav
+        className="fixed top-0 inset-x-0 z-50 bg-[rgba(7,7,7,0.92)] backdrop-blur-sm border-b border-neutral-800
+                   shadow-[0_8px_30px_rgba(0,0,0,0.6)] px-4 md:px-8 lg:px-12 py-3 flex items-center justify-between"
+        aria-label="Main navigation"
       >
-       <span className="bg-linear-to-r from-[#ba9a2f] via-[#b98a5a] to-[#8b5e3c] bg-clip-text text-transparent">
-  LumiNest
-</span>
-
-      </Link>
-
-      <div className="flex items-center space-x-6">
-        {/* CITY DROPDOWN */}
-        <div
-          className="relative group"
-          onMouseEnter={() => handleMenuEnter("Cities")}
-          onMouseLeave={handleMenuLeave}
-        >
-          <button className="text-gray-300 hover:text-white transition-all duration-200 py-2 px-1 font-medium">
-            Select City
-          </button>
-          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-white to-gray-300 transition-all duration-300 group-hover:w-full rounded-full"></span>
-
-
-{menuHovered === "Cities" && (
-  <div
-    className="absolute top-[calc(100%+20px)] left-0 w-60 max-h-56 overflow-y-auto
-               bg-[#0a0a0a]/95 backdrop-blur-xl border border-neutral-700/70
-               rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
-               animate-fadeIn z-50 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent"
-  >
-    {/* CITIES DROPDOWN HEADER */}
-    <div className="px-5 py-3 bg-linear-to-r from-neutral-900/50 to-neutral-800/50 border-b border-neutral-700/50">
-      <p className="text-sm font-medium text-white">Select a City</p>
-      <p className="text-xs text-gray-400">Explore different locations</p>
-    </div>
-
-   {/* LIST OF CITIES */}
-    <div className="py-2">
-      {cities.map((city) => (
-        <Link
-          key={city}
-          to={`/city/${city.toLowerCase()}`}
-          className="group flex items-center justify-between gap-3 px-5 py-2 text-sm text-gray-300 
-                     hover:bg-white/10 hover:text-white transition-all duration-200
-                     border-b border-neutral-800/50 last:border-b-0"
-        >
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-gray-500 group-hover:bg-white transition-all duration-200"></span>
-            <span>{city}</span>
-          </div>
-          <ChevronRight
-            size={14}
-            className="text-gray-600 opacity-0 -translate-x-1
-                       group-hover:opacity-100 group-hover:translate-x-0
-                       transition-all duration-300"
-          />
-        </Link>
-      ))}
-    </div>
-  </div>
-)}
-
-        </div>
-{/* CONTACT BUTTON */}
-     <Link
-  to="/contact"
-  className="relative group text-gray-300 hover:text-white transition-all duration-200 py-2 px-1 font-medium"
->
-  Contact
-  <span
-    className="absolute left-0 bottom-1 w-0 h-0.5 bg-white 
-               transition-all duration-300 group-hover:w-full"
-  ></span>
-</Link>
-        {/* PROFILE ICON */}
-       <div className="relative">
-  <div
-    className="p-3 rounded-full bg-neutral-800/80 hover:bg-neutral-700 transition-all duration-200 
-               border border-neutral-700 cursor-pointer hover:scale-105 hover:shadow-lg"
-    onClick={() => setProfileOpen((prev) => !prev)}
-  >
-    <User className="w-4 h-4 text-gray-200" />
-  </div>
-
-  {profileOpen && (
-    <div
-      className="absolute top-[calc(100%+15px)] right-0 w-55
-                 bg-[#0a0a0a]/95 backdrop-blur-xl
-                 border border-neutral-700/70 
-                 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)]
-                 overflow-hidden animate-fadeIn z-9999"
-    >
-      <div className="absolute -top-2 right-6 w-4 h-4 bg-[#0a0a0a]/95 border-l border-t border-neutral-700/70 rotate-45"></div>
-
-      <div className="px-5 py-4 bg-linear-to-r from-neutral-900/50 to-neutral-800/50 border-b border-neutral-700/50">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-linear-to-r from-gray-600 to-gray-400 rounded-full flex items-center justify-center">
-            <User size={20} className="text-white" />
-          </div>
-          <div>
-            <p className="text-sm font-medium text-white">
-              {isLoggedIn ? "John Doe" : "Guest User"}
-            </p>
-            <p className="text-xs text-gray-400">
-              {isLoggedIn ? "john@example.com" : "Not logged in"}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Dropdown items */}
-      {isLoggedIn ? (
-        <>
-          <Link
-            to="/profile"
-            onClick={() => setProfileOpen(false)}
-            className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
-                       hover:bg-white/10 hover:text-white transition-all duration-200
-                       border-b border-neutral-800/50"
-          >
-            <UserCircle size={16} />
-            <div className="flex-1">
-              <div className="font-medium">Profile</div>
-              <div className="text-xs text-gray-500">Manage your account</div>
-            </div>
-            <ChevronRight size={14} className="text-gray-600 group-hover/profile:text-gray-300 transition-all" />
+        {/* LEFT: Logo + small search */}
+        <div className="flex items-center gap-4">
+          <Link to="/" className="text-2xl font-semibold text-white select-none">
+            LumiNest
           </Link>
 
-          <button
-            onClick={() => {
-              setIsLoggedIn(false);
-              setProfileOpen(false);
-            }}
-            className="w-full flex items-center gap-3 px-5 py-3 text-sm 
-                       text-red-400 hover:bg-red-500/10 hover:text-red-300 
-                       transition-all duration-200"
-          >
-            <LogOut size={16} />
-            <span className="font-medium">Logout</span>
-          </button>
-        </>
-      ) : (
-        <Link
-          to="/login"
-          onClick={() => setProfileOpen(false)}
-          className="group/profile flex items-center gap-3 px-5 py-3 text-sm text-gray-300 
-                     hover:bg-white/10 hover:text-white transition-all duration-200"
-        >
-          <UserCircle size={20} />
-          <div className="flex-1">
-            <div className="font-medium">Login</div>
-            <div className="text-xs text-gray-500">Access your account</div>
+          <div className="hidden md:flex items-center bg-neutral-900 border border-neutral-800 rounded-full px-3 py-1 gap-2">
+            <Search className="text-gray-300" size={16} />
+            <input
+              type="text"
+              placeholder="Search properties"
+              className="bg-transparent outline-none placeholder:text-gray-500 text-sm text-gray-100 w-44"
+            />
           </div>
-          <ChevronRight size={14} className="text-gray-600 group-hover/profile:text-gray-300 transition-all" />
-        </Link>
-      )}
-    </div>
-  )}
-</div>
+        </div>
 
-      </div>
-    </nav>
+        {/* MIDDLE: Desktop menu */}
+        <div className="hidden lg:flex items-center gap-6 text-gray-300 font-medium">
+          {menuLeft.map((item) => (
+            <div
+              key={item.id}
+              className="relative"
+              onMouseEnter={() => openDesktopMenu(item.id)}
+              onMouseLeave={() => closeDesktopMenu(120)}
+            >
+              <button
+                onKeyDown={(e) => handleKeyToggle(e, item.id)}
+                aria-haspopup="true"
+                aria-expanded={openMenu === item.id}
+                className="group relative flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors duration-200"
+              >
+                <span>{item.icon}</span>
+                <span className="font-medium">{item.title}</span>
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 ${openMenu === item.id ? 'rotate-180' : ''}`}
+                  style={{ animation: openMenu === item.id ? 'none' : 'chevronBounce 2s ease-in-out infinite' }}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* FULL-WIDTH MEGA DROPDOWN */}
+              {openMenu === item.id && (
+                <div className="fixed top-16 left-0 w-screen z-40 pointer-events-auto">
+                  
+                  {/* Animated container */}
+                  <div
+                    className="relative w-full"
+                    style={{ 
+                      animation: "fadeIn 0.2s ease-out"
+                    }}
+                    onMouseEnter={() => {
+                      if (hoverTimeout.current) {
+                        clearTimeout(hoverTimeout.current);
+                        hoverTimeout.current = null;
+                      }
+                    }}
+                    onMouseLeave={() => closeDesktopMenu(100)}
+                  >
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 bg-[rgba(12,12,12,0.98)] border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl">
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                        {/* categories */}
+                        <div className="md:col-span-4">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">
+                            {item.title} Categories
+                          </h4>
+                          <nav className="flex flex-col gap-2">
+                            {item.links.map((l) => (
+                              <Link
+                                key={l.label}
+                                to={l.to}
+                                onClick={() => setOpenMenu(null)}
+                                className="group px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <span className="group-hover:text-white transition-colors">{l.label}</span>
+                                  <ChevronRight 
+                                    size={14} 
+                                    className="text-gray-500 opacity-0 group-hover:opacity-100 group-hover:text-gray-300 transition-all duration-200" 
+                                  />
+                                </div>
+                              </Link>
+                            ))}
+                          </nav>
+                        </div>
+
+                        {/* center area (featured options) */}
+                        <div className="md:col-span-5">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Featured Options</h4>
+                          <div className="grid grid-cols-2 gap-3">
+                            {item.links.map((l) => (
+                              <Link
+                                key={`explore-${l.label}`}
+                                to={l.to}
+                                onClick={() => setOpenMenu(null)}
+                                className="group p-4 rounded-lg bg-white/3 hover:bg-white/6 transition-colors duration-200 text-sm text-gray-200 border border-transparent hover:border-white/10"
+                              >
+                                <div className="font-medium group-hover:text-white transition-colors">{l.label}</div>
+                                <div className="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
+                                  {l.label === 'Apartments' && 'Modern living spaces'}
+                                  {l.label === 'Villas' && 'Luxury properties'}
+                                  {l.label === 'Plots' && 'Investment opportunities'}
+                                  {l.label === 'New Projects' && 'Under construction'}
+                                  {l.label === 'Post Property' && 'List your property'}
+                                  {l.label === 'Pricing Plans' && 'Choose your plan'}
+                                  {l.label === 'Seller Guide' && 'Tips & guidelines'}
+                                  {l.label === 'Homes for Rent' && 'Residential rentals'}
+                                  {l.label === 'Commercial Spaces' && 'Office & retail'}
+                                  {l.label === 'PG & Shared' && 'Shared accommodations'}
+                                </div>
+                              </Link>
+                            ))}
+                            <Link
+                              to={`/${item.id}`}
+                              onClick={() => setOpenMenu(null)}
+                              className="group p-4 rounded-lg bg-white/5 hover:bg-white/8 transition-colors duration-200 text-sm text-gray-200 border border-white/10 hover:border-white/20 col-span-2"
+                            >
+                              <div className="text-center">
+                                <div className="font-semibold group-hover:text-white transition-colors">View All {item.title}</div>
+                                <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-300 transition-colors">Browse complete collection</div>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* right: quick links + CTA */}
+                        <div className="md:col-span-3">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Quick Actions</h4>
+                          <div className="flex flex-col gap-3">
+                            <Link
+                              to="/contact"
+                              onClick={() => setOpenMenu(null)}
+                              className="group flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                              </div>
+                              <span className="group-hover:text-white transition-colors">Contact Sales</span>
+                            </Link>
+                            <Link
+                              to="/help"
+                              onClick={() => setOpenMenu(null)}
+                              className="group flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                              </div>
+                              <span className="group-hover:text-white transition-colors">Help Center</span>
+                            </Link>
+                          </div>
+
+                          <div className="mt-6">
+                            <Link
+                              to={isLoggedIn ? "/sell/post" : "/login"}
+                              onClick={() => setOpenMenu(null)}
+                              className="group inline-flex items-center justify-center w-full gap-2 px-6 py-3 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold transition-colors duration-200"
+                            >
+                              <span>{item.title === "Sell" ? "List a Property" : `Explore ${item.title}`}</span>
+                              <ChevronRight 
+                                size={16} 
+                                className="group-hover:translate-x-1 transition-transform duration-200" 
+                              />
+                            </Link>
+                          </div>
+
+                          {/* Featured stats */}
+                          <div className="mt-6 grid grid-cols-2 gap-3">
+                            <div className="text-center p-3 rounded-lg bg-white/5">
+                              <div className="text-lg font-bold text-white">500+</div>
+                              <div className="text-xs text-gray-400">Properties</div>
+                            </div>
+                            <div className="text-center p-3 rounded-lg bg-white/5">
+                              <div className="text-lg font-bold text-white">50+</div>
+                              <div className="text-xs text-gray-400">Cities</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* overlay to close when clicked outside */}
+                  <div
+                    className="fixed inset-0 z-30"
+                    onClick={() => setOpenMenu(null)}
+                    aria-hidden="true"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* RIGHT side */}
+        <div className="flex items-center gap-3">
+          {/* Contact */}
+          <Link
+            to="/contact"
+            className="hidden sm:inline text-sm text-gray-300 hover:text-white px-1 py-2 transition-colors"
+          >
+            Contact
+          </Link>
+
+          {/* Login or Profile */}
+          {!isLoggedIn ? (
+            <Link
+              to="/login"
+              className="px-3 py-1 rounded-md bg-white/6 text-white text-sm font-medium hover:bg-white/12 transition"
+            >
+              Login
+            </Link>
+          ) : (
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={() => setProfileOpen((p) => !p)}
+                aria-expanded={profileOpen}
+                className="flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-800/70 border border-neutral-700 text-gray-100 hover:bg-neutral-800 transition"
+              >
+                <User size={16} />
+                <span className="hidden sm:inline text-sm">John</span>
+              </button>
+
+              {profileOpen && (
+                <div
+                  role="menu"
+                  aria-label="Account menu"
+                  className="absolute right-0 mt-3 w-56 z-50 bg-[rgba(12,12,12,0.96)] border border-neutral-800 rounded-lg shadow-lg overflow-hidden"
+                >
+                  <div className="px-4 py-3 border-b border-neutral-800">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                        <User size={16} className="text-white" />
+                      </div>
+                      <div>
+                        <div className="text-sm text-white font-medium">John Doe</div>
+                        <div className="text-xs text-gray-400">john@example.com</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <Link
+                      to="/profile"
+                      onClick={() => setProfileOpen(false)}
+                      className="px-4 py-3 text-sm text-gray-200 hover:bg-white/5 transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <UserCircle size={16} />
+                        <span>Profile</span>
+                      </div>
+                    </Link>
+                    <Link
+                      to="/listings"
+                      onClick={() => setProfileOpen(false)}
+                      className="px-4 py-3 text-sm text-gray-200 hover:bg-white/5 transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Building size={16} />
+                        <span>My Listings</span>
+                      </div>
+                    </Link>
+                    <Link
+                      to="/favorites"
+                      onClick={() => setProfileOpen(false)}
+                      className="px-4 py-3 text-sm text-gray-200 hover:bg-white/5 transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Heart size={16} />
+                        <span>Favorites</span>
+                      </div>
+                    </Link>
+                    <Link
+                      to="/settings"
+                      onClick={() => setProfileOpen(false)}
+                      className="px-4 py-3 text-sm text-gray-200 hover:bg-white/5 transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Settings size={16} />
+                        <span>Settings</span>
+                      </div>
+                    </Link>
+
+                    <button
+                      onClick={() => {
+                        setIsLoggedIn(false);
+                        setProfileOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <LogOut size={16} />
+                        <span>Logout</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden p-2 rounded-md bg-neutral-800/60 hover:bg-neutral-700 transition"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="text-gray-200" size={18} />
+          </button>
+        </div>
+      </nav>
+
+      {/* MOBILE Drawer (right) */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`fixed top-0 right-0 h-full z-50 w-[92%] max-w-[420px]
+                    bg-[rgba(10,10,10,0.98)] border-l border-neutral-800 shadow-[ -20px 0 60px rgba(0,0,0,0.7) ]
+                    transform transition-transform duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+                    ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
+        aria-hidden={!mobileOpen}
+        aria-label="Mobile menu"
+      >
+        <div className="flex items-center justify-between px-4 py-4 border-b border-neutral-800">
+          <Link to="/" className="text-xl font-semibold text-white">
+            LumiNest
+          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              className="p-2 rounded-md bg-neutral-800/50 hover:bg-neutral-700 transition"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close"
+            >
+              <X className="text-gray-200" size={18} />
+            </button>
+          </div>
+        </div>
+
+        <div className="p-4 space-y-4 overflow-auto h-[calc(100%-64px)]">
+          {/* Mobile search */}
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <input
+                placeholder="Search properties"
+                className="w-full px-3 py-2 rounded-md bg-neutral-900 border border-neutral-800 text-gray-200 text-sm outline-none"
+              />
+            </div>
+            <button className="p-2 rounded-md bg-neutral-800/60 hover:bg-neutral-700 transition">
+              <Search className="text-gray-200" size={16} />
+            </button>
+          </div>
+
+          {/* Collapsible Buy/Sell/Rent */}
+          <div className="space-y-3">
+            {menuLeft.map((section) => {
+              const open = mobileSectionOpen === section.id;
+              return (
+                <div key={section.id} className="border border-neutral-800 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setMobileSectionOpen((s) => (s === section.id ? null : section.id))}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-[rgba(11,11,11,0.9)] hover:bg-[rgba(15,15,15,0.95)] transition"
+                    aria-expanded={open}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="text-gray-300">{section.icon}</div>
+                      <div>
+                        <div className="text-sm text-gray-200 font-medium">{section.title}</div>
+                        <div className="text-xs text-gray-500">Explore {section.title}</div>
+                      </div>
+                    </div>
+
+                    <ChevronRight
+                      size={18}
+                      className={`text-gray-400 transform transition-transform duration-200 ${open ? "rotate-90" : "rotate-0"}`}
+                    />
+                  </button>
+
+                  {open && (
+                    <div className="px-3 py-2 bg-[rgba(9,9,9,0.95)]">
+                      <div className="space-y-2">
+                        {section.links.map((l) => (
+                          <Link
+                            key={l.label}
+                            to={l.to}
+                            onClick={() => {
+                              setMobileOpen(false);
+                              setMobileSectionOpen(null);
+                            }}
+                            className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-white/5 transition-colors text-gray-200"
+                          >
+                            <div>
+                              <div className="text-sm font-medium">{l.label}</div>
+                            </div>
+                            <ChevronRight size={14} className="text-gray-400" />
+                          </Link>
+                        ))}
+
+                        <div className="pt-2">
+                          <Link
+                            to={isLoggedIn ? "/sell/post" : "/login"}
+                            onClick={() => {
+                              setMobileOpen(false);
+                              setMobileSectionOpen(null);
+                            }}
+                            className="block text-center px-4 py-3 rounded-md bg-white/8 text-white font-semibold hover:bg-white/16 transition"
+                          >
+                            {section.title === "Sell" ? "List a Property" : `Explore ${section.title}`}
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Account area */}
+          <div className="pt-4 border-t border-neutral-800">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                <User size={18} className="text-white" />
+              </div>
+              <div>
+                <div className="text-sm text-white font-medium">{isLoggedIn ? "John Doe" : "Guest User"}</div>
+                <div className="text-xs text-gray-400">{isLoggedIn ? "john@example.com" : "Not logged in"}</div>
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-2">
+              {isLoggedIn ? (
+                <>
+                  <Link onClick={() => setMobileOpen(false)} to="/listings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">My Listings</Link>
+                  <Link onClick={() => setMobileOpen(false)} to="/favorites" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Favorites</Link>
+                  <Link onClick={() => setMobileOpen(false)} to="/settings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Settings</Link>
+                  <button
+                    onClick={() => {
+                      setIsLoggedIn(false);
+                      setMobileOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 rounded-md text-red-400 hover:bg-red-500/10"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Login</Link>
+                  <Link to="/signup" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Create account</Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

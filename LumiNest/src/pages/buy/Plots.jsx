@@ -106,8 +106,21 @@ const filteredPlots = allPlots.filter((plot) => {
   return typeOkay && searchOkay;
 });
 
+const clearAllFilters = () => {
+  setSelectedType("All");
+  setSearchText("");
+};
 
-  const type = ["All", "Residential", "Commercial", "Agricultural"];
+let activeFiltersCount;
+
+if (selectedType !== "All" || searchText !== "") {
+  activeFiltersCount =
+    (selectedType !== "All" ? 1 : 0) +
+    (searchText !== "" ? 1 : 0);
+} else {
+  activeFiltersCount = 0;
+}
+
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
@@ -148,15 +161,14 @@ const filteredPlots = allPlots.filter((plot) => {
                border border-neutral-700/80 rounded-xl text-sm cursor-pointer text-gray-200 
               shadow-md transition-all duration-300"
             >
-              {type.map((option) => (
-                <option
-                  key={option}
-                  value={option}
-                  className="bg-neutral-900 text-gray-300"
-                >
-                  {option}
-                </option>
-              ))}
+              <option value="All" className="bg-neutral-900 text-gray-300">All Types</option>
+              <optgroup label="Urban Plots" className="bg-neutral-800">
+                <option value="Residential" className="bg-neutral-900 text-gray-300">Residential</option>
+                <option value="Commercial" className="bg-neutral-900 text-gray-300">Commercial</option>
+              </optgroup>
+              <optgroup label="Rural Plots" className="bg-neutral-800">
+                <option value="Agricultural" className="bg-neutral-900 text-gray-300">Agricultural</option>
+              </optgroup>
             </select>
 
             <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -176,6 +188,15 @@ const filteredPlots = allPlots.filter((plot) => {
               </svg>
             </div>
           </div>
+
+          {activeFiltersCount > 0 && (
+            <button
+              onClick={clearAllFilters}
+              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+            >
+              Clear All
+            </button>
+          )}
         </div>
       </div>
 

@@ -64,9 +64,7 @@ export default function Villas() {
     },
   ];
 
-  const bhkOptions = ["All", "1", "2", "3", "4"];
-
- const filteredVillas = villas.filter((villa) => {
+  const filteredVillas = villas.filter((villa) => {
   const text = searchText.toLowerCase();
   const searchOkay =
     villa.title.toLowerCase().includes(text) ||
@@ -77,7 +75,20 @@ export default function Villas() {
 
   return searchOkay && bhkOkay;
 });
+const clearAllFilters = () => {
+  setBhkFilter("All");
+  setSearchText("");
+};
 
+let activeFiltersCount;
+
+if (bhkFilter !== "All" || searchText !== "") {
+  activeFiltersCount =
+    (bhkFilter !== "All" ? 1 : 0) +
+    (searchText !== "" ? 1 : 0);
+} else {
+  activeFiltersCount = 0;
+}
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
@@ -118,15 +129,15 @@ export default function Villas() {
                               border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
                             shadow-md transition-all duration-300"
             >
-              {bhkOptions.map((option) => (
-                <option
-                  key={option}
-                  value={option}
-                  className="bg-neutral-900 text-gray-300"
-                >
-                  {option === "All" ? "All BHK" : `${option} BHK`}
-                </option>
-              ))}
+              <option value="All" className="bg-neutral-900 text-gray-300">All BHK</option>
+              <optgroup label="Compact" className="bg-neutral-800">
+                <option value="1" className="bg-neutral-900 text-gray-300">1 BHK</option>
+                <option value="2" className="bg-neutral-900 text-gray-300">2 BHK</option>
+              </optgroup>
+              <optgroup label="Spacious" className="bg-neutral-800">
+                <option value="3" className="bg-neutral-900 text-gray-300">3 BHK</option>
+                <option value="4" className="bg-neutral-900 text-gray-300">4 BHK</option>
+              </optgroup>
             </select>
 
             <svg
@@ -144,6 +155,15 @@ export default function Villas() {
               />
             </svg>
           </div>
+
+          {activeFiltersCount > 0 && (
+            <button
+              onClick={clearAllFilters}
+              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+            >
+              Clear All
+            </button>
+          )}
         </div>
       </div>
 

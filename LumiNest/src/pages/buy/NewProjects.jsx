@@ -110,11 +110,28 @@ const filteredProjects = allProjects.filter((project) => {
     project.location.toLowerCase().includes(text) ||
     project.builder.toLowerCase().includes(text);
 
-  return statusOkay && searchOkay;
+  if (statusOkay && searchOkay) {
+    return true;
+  } else {
+    return false;
+  }
 });
 
+const clearAllFilters = () => {
+  setStatus("All");
+  setSearchText("");
+};
 
-  const statusOptions = ['All', 'Pre-Launch', 'Newly Launched', 'Under Construction'];
+let activeFiltersCount;
+
+if (status !== "All" || searchText !== "") {
+  activeFiltersCount =
+    (status !== "All" ? 1 : 0) +
+    (searchText !== "" ? 1 : 0);
+} else {
+  activeFiltersCount = 0;
+}
+
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
@@ -153,11 +170,14 @@ const filteredProjects = allProjects.filter((project) => {
                          hover:border-neutral-600 hover:bg-neutral-800/90 
                          outline-none"
             >
-              {statusOptions.map(option => (
-                <option key={option} value={option} style={{ backgroundColor: "#202020", color: "#e5e5e5" }}>
-                  {option}
-                </option>
-              ))}
+              <option value="All" style={{ backgroundColor: "#202020", color: "#e5e5e5" }}>All Status</option>
+              <optgroup label="Early Stage" style={{ backgroundColor: "#1a1a1a" }}>
+                <option value="Pre-Launch" style={{ backgroundColor: "#202020", color: "#e5e5e5" }}>Pre-Launch</option>
+                <option value="Newly Launched" style={{ backgroundColor: "#202020", color: "#e5e5e5" }}>Newly Launched</option>
+              </optgroup>
+              <optgroup label="In Progress" style={{ backgroundColor: "#1a1a1a" }}>
+                <option value="Under Construction" style={{ backgroundColor: "#202020", color: "#e5e5e5" }}>Under Construction</option>
+              </optgroup>
             </select>
 
             <svg
@@ -170,6 +190,15 @@ const filteredProjects = allProjects.filter((project) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
+
+          {activeFiltersCount > 0 && (
+            <button
+              onClick={clearAllFilters}
+              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+            >
+              Clear All
+            </button>
+          )}
         </div>
       </div>
 

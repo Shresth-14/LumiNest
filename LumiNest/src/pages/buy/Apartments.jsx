@@ -75,25 +75,38 @@ export default function Apartments() {
     },
   ];
 
-const filteredApartments = allApartments.filter((apt) => {
-  const bhkOkay =
-    bhkFilter === "All" || apt.beds === Number(bhkFilter);
+  const filteredApartments = allApartments.filter((apt) => {
+    const bhkOkay =
+      bhkFilter === "All" || apt.beds === Number(bhkFilter);
 
-  const statusOkay =
-    statusFilter === "All" || apt.type === statusFilter;
+    const statusOkay =
+      statusFilter === "All" || apt.type === statusFilter;
 
-  const text = searchText.toLowerCase();
-  const searchOkay =
-    text === "" ||
-    apt.title.toLowerCase().includes(text) ||
-    apt.location.toLowerCase().includes(text);
+    const text = searchText.toLowerCase();
+    const searchOkay =
+      text === "" ||
+      apt.title.toLowerCase().includes(text) ||
+      apt.location.toLowerCase().includes(text);
 
-  return bhkOkay && statusOkay && searchOkay;
-});
+    return bhkOkay && statusOkay && searchOkay;
+  });
+const clearAllFilters = () => {
+  setBhkFilter("All");
+  setStatusFilter("All");
+  setSearchText("");
+};
 
+let activeFiltersCount;
 
-  const bhkOptions = ["All", "1", "2", "3", "4"];
-  const statusOptions = ["All", "Ready to Move", "Under Construction"];
+if (bhkFilter !== "All" || statusFilter !== "All" || searchText !== "") {
+  activeFiltersCount =
+    (bhkFilter !== "All" ? 1 : 0) +
+    (statusFilter !== "All" ? 1 : 0) +
+    (searchText !== "" ? 1 : 0);
+} else {
+  activeFiltersCount = 0;
+}
+
 
   return (
     <div className="min-h-screen text-white pt-20">
@@ -110,8 +123,10 @@ const filteredApartments = allApartments.filter((apt) => {
         </span>
       </div>
 
+      {/* FILTER BAR */}
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
         <div className="max-w-6xl mx-auto px-5 py-4 flex flex-wrap gap-4 items-center justify-between">
+          {/* SEARCH INPUT */}
           <div className="relative flex-1 min-w-60">
             <Search
               className="absolute inset-y-0 left-3 my-auto text-gray-400"
@@ -127,6 +142,7 @@ const filteredApartments = allApartments.filter((apt) => {
             />
           </div>
 
+          {/* BHK FILTER */}
           <div className="relative w-44">
             <select
               value={bhkFilter}
@@ -135,15 +151,15 @@ const filteredApartments = allApartments.filter((apt) => {
                          border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
                        shadow-md transition-all duration-300"
             >
-              {bhkOptions.map((option) => (
-                <option
-                  key={option}
-                  value={option}
-                  className="bg-neutral-900 text-gray-300"
-                >
-                  {option === "All" ? "All BHK" : `${option} BHK`}
-                </option>
-              ))}
+              <option value="All" className="bg-neutral-900 text-gray-300">All BHK</option>
+              <optgroup label="Compact" className="bg-neutral-800">
+                <option value="1" className="bg-neutral-900 text-gray-300">1 BHK</option>
+                <option value="2" className="bg-neutral-900 text-gray-300">2 BHK</option>
+              </optgroup>
+              <optgroup label="Spacious" className="bg-neutral-800">
+                <option value="3" className="bg-neutral-900 text-gray-300">3 BHK</option>
+                <option value="4" className="bg-neutral-900 text-gray-300">4 BHK</option>
+              </optgroup>
             </select>
 
             <svg
@@ -162,24 +178,19 @@ const filteredApartments = allApartments.filter((apt) => {
             </svg>
           </div>
 
+          {/* STATUS FILTER */}
           <div className="relative w-52">
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
-                         border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
-                         focus:ring-2 focus:ring-cyan-600/30 focus:border-cyan-500/50
-                         hover:border-cyan-500/30 shadow-md transition-all duration-300"
+                         border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200"
             >
-              {statusOptions.map((option) => (
-                <option
-                  key={option}
-                  value={option}
-                  className="bg-neutral-900 text-gray-300"
-                >
-                  {option}
-                </option>
-              ))}
+              <option value="All" className="bg-neutral-900 text-gray-300">All Status</option>
+              <optgroup label="Availability" className="bg-neutral-800">
+                <option value="Ready to Move" className="bg-neutral-900 text-gray-300">Ready to Move</option>
+                <option value="Under Construction" className="bg-neutral-900 text-gray-300">Under Construction</option>
+              </optgroup>
             </select>
 
             <svg
@@ -197,9 +208,20 @@ const filteredApartments = allApartments.filter((apt) => {
               />
             </svg>
           </div>
+
+          {/* CLEAR BUTTON */}
+          {activeFiltersCount > 0 && (
+            <button
+              onClick={clearAllFilters}
+              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+            >
+              Clear All
+            </button>
+          )}
         </div>
       </div>
 
+      {/* APARTMENTS LIST */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         {filteredApartments.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -210,7 +232,7 @@ const filteredApartments = allApartments.filter((apt) => {
             {filteredApartments.map((apartment) => (
               <Link
                 key={apartment.id}
-                to={`/apartments/${apartment.id}`} //Temporay
+                to={`/apartments/${apartment.id}`}
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
               >

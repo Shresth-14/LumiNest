@@ -217,16 +217,15 @@ const filteredProperties = allProperties.filter((property) => {
       </div>
 
       <div className="sticky top-16 backdrop-blur-md z-10 border-b border-neutral-800/50">
-        <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center">
+        <div className="max-w-6xl  mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between ml-59">
           <div className="relative flex-1 min-w-60">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or location..."
-              className="w-full pl-9 pr-3 py-2 bg-neutral-900/20 text-gray-200 placeholder-gray-500 
-                         border border-neutral-700 rounded-xl outline-none text-sm
-                         hover:border-neutral-600 focus:border-blue-500 transition-all duration-200"
+              className="w-247 pl-9 pr-3 py-2.5 bg-neutral-800/20 text-gray-200 placeholder-gray-500 
+                         border border-neutral-700 rounded-xl outline-none text-sm"
             />
           </div>
         </div>

@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { MapPin, Building2, Calendar, Search } from 'lucide-react';
 
 export default function NewProjects() {
-  const [selectedStatus, setSelectedStatus] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [priceRange, setPriceRange] = useState('All');
+  const [status, setStatus] = useState('All');
+  const [searchText, setSearchText] = useState('');
 
   const allProjects = [
     {
@@ -100,76 +99,54 @@ export default function NewProjects() {
     }
   ];
 
-  // Filter projects based on selected filters
-  const filteredProjects = allProjects.filter(project => {
-    const matchesStatus = selectedStatus === 'All' || project.status === selectedStatus;
-    const matchesSearch = searchQuery === '' || 
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.builder.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    let matchesPrice = true;
-    if (priceRange === 'Under 1 Cr') matchesPrice = project.priceValue < 10000000;
-    else if (priceRange === '1-2 Cr') matchesPrice = project.priceValue >= 10000000 && project.priceValue < 20000000;
-    else if (priceRange === 'Above 2 Cr') matchesPrice = project.priceValue >= 20000000;
+const filteredProjects = allProjects.filter((project) => {
+  const statusOkay =
+    status === "All" || project.status === status;
 
-    return matchesStatus && matchesSearch && matchesPrice;
-  });
+  const text = searchText.toLowerCase();
+  const searchOkay =
+    text === "" ||
+    project.title.toLowerCase().includes(text) ||
+    project.location.toLowerCase().includes(text) ||
+    project.builder.toLowerCase().includes(text);
+
+  return statusOkay && searchOkay;
+});
+
 
   const statusOptions = ['All', 'Pre-Launch', 'Newly Launched', 'Under Construction'];
-  const priceOptions = ['All', 'Under 1 Cr', '1-2 Cr', 'Above 2 Cr'];
-
-  const clearAllFilters = () => {
-    setSelectedStatus('All');
-    setPriceRange('All');
-    setSearchQuery('');
-  };
-
-  const activeFiltersCount = [selectedStatus, priceRange].filter(f => f !== 'All').length;
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Pre-Launch':
-        return 'bg-blue-500/90';
-      case 'Newly Launched':
-        return 'bg-green-500/90';
-      case 'Under Construction':
-        return 'bg-orange-500/90';
-      default:
-        return 'bg-purple-500/90';
-    }
-  };
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
-      <div className="max-w-6xl mx-auto px-4 py-8 border-neutral-800 text-center">
-        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight">
-          New Projects
+      <div className="max-w-6xl mx-auto px-4 py-8 text-center">
+        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
+          Luxury Apartments
         </h1>
-        <p className="text-gray-400 mt-2 text-md tracking-wide">
-          {filteredProjects.length} projects available
-        </p>
+        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+          {filteredProjects.length}
+        </span>
+        <span className="mt-2 text-md tracking-wide">
+          {" "}
+          properties available
+        </span>
       </div>
-
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
         <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between">
-          
           <div className="relative flex-1 min-w-60">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or location..."
               className="w-full pl-9 pr-3 py-2.5 bg-neutral-800/80 text-gray-200 placeholder-gray-500 
-                         border border-neutral-700 rounded-xl outline-none text-sm
-                         hover:bg-neutral-800 transition-all duration-200"
+                         border border-neutral-700 rounded-xl outline-none text-sm"
             />
           </div>
 
           <div className="relative w-44">
             <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800 to-neutral-900 
                          border border-neutral-700 rounded-xl text-sm cursor-pointer
                          text-gray-200 shadow-inner transition-all duration-200
@@ -193,11 +170,9 @@ export default function NewProjects() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-
         </div>
       </div>
 
-      {/* Projects Grid */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         {filteredProjects.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -208,9 +183,10 @@ export default function NewProjects() {
             {filteredProjects.map((project) => (
               <Link
                 key={project.id}
-                to={`/projects/${project.id}`}
-                className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 transition"
-              >
+                to={`/projects/${project.id}`} //Temporary
+                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
+                           hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
+               >
                 <img src={project.image} alt={project.title} className="h-48 w-full object-cover" />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
@@ -225,7 +201,7 @@ export default function NewProjects() {
                       <span className="text-gray-300 font-medium">{project.completionPercent}%</span>
                     </div>
                     <div className="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-blue-500 rounded-full"
                         style={{ width: `${project.completionPercent}%` }}
                       />
@@ -233,13 +209,19 @@ export default function NewProjects() {
                   </div>
 
                   <div className="flex items-center gap-3 text-gray-400 text-sm border-b border-neutral-800 pb-2 mb-3">
-                    <span className="flex items-center gap-1"><Building2 size={14} /> {project.configurations}</span>
-                    <span className="flex items-center gap-1"><Calendar size={14} /> {project.possession}</span>
+                    <span className="flex items-center gap-1">
+                      <Building2 size={14} /> {project.configurations}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar size={14} /> {project.possession}
+                    </span>
                   </div>
 
                   <div className="flex flex-wrap gap-1.5 mb-3 text-xs text-gray-400">
-                    {project.amenities.slice(0, 3).map((amenity, i) => (
-                      <span key={i} className="px-2 py-0.5 bg-neutral-800 rounded">{amenity}</span>
+                    {project.amenities.map((amenity, i) => (
+                      <span key={i} className="px-2 py-0.5 bg-neutral-800 rounded">
+                        {amenity}
+                      </span>
                     ))}
                   </div>
 

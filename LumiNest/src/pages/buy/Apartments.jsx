@@ -75,15 +75,22 @@ export default function Apartments() {
     },
   ];
 
-  const filteredApartments = allApartments.filter((apartment) => {
-    const matchesBHK = bhkFilter === "All" || apartment.beds === parseInt(bhkFilter);
-    const matchesStatus = statusFilter === "All" || apartment.type === statusFilter;
-    const matchesSearch =
-      searchText === "" ||
-      apartment.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      apartment.location.toLowerCase().includes(searchText.toLowerCase());
-    return matchesBHK && matchesStatus && matchesSearch;
-  });
+const filteredApartments = allApartments.filter((apt) => {
+  const bhkOkay =
+    bhkFilter === "All" || apt.beds === Number(bhkFilter);
+
+  const statusOkay =
+    statusFilter === "All" || apt.type === statusFilter;
+
+  const text = searchText.toLowerCase();
+  const searchOkay =
+    text === "" ||
+    apt.title.toLowerCase().includes(text) ||
+    apt.location.toLowerCase().includes(text);
+
+  return bhkOkay && statusOkay && searchOkay;
+});
+
 
   const bhkOptions = ["All", "1", "2", "3", "4"];
   const statusOptions = ["All", "Ready to Move", "Under Construction"];

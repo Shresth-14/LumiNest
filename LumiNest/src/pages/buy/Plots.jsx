@@ -4,7 +4,7 @@ import { MapPin, Square, Search, Ruler } from "lucide-react";
 
 export default function Plots() {
   const [selectedType, setSelectedType] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   const allPlots = [
     {
@@ -15,7 +15,8 @@ export default function Plots() {
       priceValue: 18000000,
       area: "2,400 sq ft",
       dimension: "40x60 ft",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop",
       type: "Residential",
       status: "Clear Title",
       facing: "East",
@@ -28,7 +29,8 @@ export default function Plots() {
       priceValue: 32000000,
       area: "3,600 sq ft",
       dimension: "60x60 ft",
-      image: "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&auto=format&fit=crop",
       type: "Commercial",
       status: "Clear Title",
       facing: "North",
@@ -41,7 +43,8 @@ export default function Plots() {
       priceValue: 4500000,
       area: "1 Acre",
       dimension: "200x217 ft",
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop",
       type: "Agricultural",
       status: "Clear Title",
       facing: "South",
@@ -54,7 +57,8 @@ export default function Plots() {
       priceValue: 21000000,
       area: "3,000 sq ft",
       dimension: "50x60 ft",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop",
       type: "Residential",
       status: "DTCP Approved",
       facing: "Corner",
@@ -67,7 +71,8 @@ export default function Plots() {
       priceValue: 28000000,
       area: "2,800 sq ft",
       dimension: "40x70 ft",
-      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop",
       type: "Commercial",
       status: "Clear Title",
       facing: "West",
@@ -80,84 +85,97 @@ export default function Plots() {
       priceValue: 35000000,
       area: "4,000 sq ft",
       dimension: "50x80 ft",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
       type: "Residential",
       status: "Clear Title",
       facing: "East",
     },
   ];
 
-  // 🔍 Filter logic
-  const filteredPlots = allPlots.filter((plot) => {
-    const matchesType = selectedType === "All" || plot.type === selectedType;
-    const matchesSearch =
-      searchQuery === "" ||
-      plot.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plot.location.toLowerCase().includes(searchQuery.toLowerCase());
+const filteredPlots = allPlots.filter((plot) => {
+  const typeOkay =
+    selectedType === "All" || plot.type === selectedType;
 
-    return matchesType && matchesSearch;
-  });
+  const text = searchText.toLowerCase();
+  const searchOkay =
+    text === "" ||
+    plot.title.toLowerCase().includes(text) ||
+    plot.location.toLowerCase().includes(text);
 
-  const typeOptions = ["All", "Residential", "Commercial", "Agricultural"];
+  return typeOkay && searchOkay;
+});
+
+
+  const type = ["All", "Residential", "Commercial", "Agricultural"];
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
-       <div className="max-w-6xl mx-auto px-4 py-8  border-neutral-800 text-center">
-  <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight">
-    Luxury Villas
-  </h1>
-  <p className="text-gray-400 mt-2 text-md tracking-wide">
-    {filteredPlots.length} properties available
-  </p>
-</div>
+      <div className="max-w-6xl mx-auto px-4 py-8 text-center">
+        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
+          Luxury Apartments
+        </h1>
+        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+          {filteredPlots.length}
+        </span>
+        <span className="mt-2 text-md tracking-wide">
+          {" "}
+          properties available
+        </span>
+      </div>
 
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
         <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between">
-          
           <div className="relative flex-1 min-w-60">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={16}
+            />
             <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or location..."
               className="w-full pl-9 pr-3 py-2.5 bg-neutral-800/80 text-gray-200 placeholder-gray-500 
-                         border border-neutral-700 rounded-xl outline-none text-sm
-                         hover:bg-neutral-800 transition-all duration-200"
+                         border border-neutral-700 rounded-xl outline-none text-sm"
             />
           </div>
 
-<div className="relative w-48">
-  <select
-    value={selectedType}
-    onChange={(e) => setSelectedType(e.target.value)}
-    className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
+          <div className="relative w-48">
+            <select
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
                border border-neutral-700/80 rounded-xl text-sm cursor-pointer text-gray-200 
               shadow-md transition-all duration-300"
-  >
-    {typeOptions.map((option) => (
-      <option
-        key={option}
-        value={option}
-        className="bg-neutral-900 text-gray-300"
-      >
-        {option}
-      </option>
-    ))}
-  </select>
+            >
+              {type.map((option) => (
+                <option
+                  key={option}
+                  value={option}
+                  className="bg-neutral-900 text-gray-300"
+                >
+                  {option}
+                </option>
+              ))}
+            </select>
 
-  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-    <svg
-      className="w-4 h-4 text-gray-400 group-hover:text-gray-200 transition-colors duration-200"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-</div>
-
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-400 group-hover:text-gray-200 transition-colors duration-200"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -171,7 +189,7 @@ export default function Plots() {
             {filteredPlots.map((plot) => (
               <Link
                 key={plot.id}
-                to={`/plots/${plot.id}`}
+                to={`/plots/${plot.id}`} //Temporary
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
               >

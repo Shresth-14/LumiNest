@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Square, Search, Building2, Home, Trees, Hammer } from 'lucide-react';
 
 export default function BuyAll() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const allProperties = [
-    // Apartments
     {
       id: 'apt-1',
       category: 'Apartments',
@@ -50,6 +48,7 @@ export default function BuyAll() {
       type: "Ready to Move",
       link: "/apartments"
     },
+
     // Villas
     {
       id: 'villa-1',
@@ -62,7 +61,6 @@ export default function BuyAll() {
       baths: 4,
       area: "4,500 sq ft",
       image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop",
-      features: ["Private Pool", "Garden", "Parking"],
       link: "/villas"
     },
     {
@@ -76,7 +74,6 @@ export default function BuyAll() {
       baths: 3,
       area: "3,800 sq ft",
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop",
-      features: ["Garden", "Terrace", "Parking"],
       link: "/villas"
     },
     {
@@ -90,9 +87,9 @@ export default function BuyAll() {
       baths: 5,
       area: "6,000 sq ft",
       image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&auto=format&fit=crop",
-      features: ["Private Pool", "Beach Access", "Parking"],
       link: "/villas"
     },
+
     // Plots
     {
       id: 'plot-1',
@@ -104,7 +101,6 @@ export default function BuyAll() {
       area: "2,400 sq ft",
       dimension: "40x60 ft",
       image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop",
-      plotType: "Residential",
       link: "/plots"
     },
     {
@@ -117,7 +113,6 @@ export default function BuyAll() {
       area: "3,600 sq ft",
       dimension: "60x60 ft",
       image: "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&auto=format&fit=crop",
-      plotType: "Commercial",
       link: "/plots"
     },
     {
@@ -130,9 +125,9 @@ export default function BuyAll() {
       area: "4,000 sq ft",
       dimension: "50x80 ft",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
-      plotType: "Residential",
       link: "/plots"
     },
+
     // New Projects
     {
       id: 'project-1',
@@ -175,104 +170,72 @@ export default function BuyAll() {
     }
   ];
 
-  const filteredProperties = allProperties.filter((property) => {
-    const matchesCategory = selectedCategory === 'All' || property.category === selectedCategory;
-    const matchesSearch =
-      searchQuery === '' ||
-      property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchQuery.toLowerCase());
+const filteredProperties = allProperties.filter((property) => {
+  const text = searchText.toLowerCase();
 
-    
-    return matchesCategory && matchesSearch;
-  });
+  const matchesSearch =
+    text === "" ||
+    property.title.toLowerCase().includes(text) ||
+    property.location.toLowerCase().includes(text);
 
-  const categories = ['All', 'Apartments', 'Villas', 'Plots', 'New Projects'];
+  return matchesSearch;
+});
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-24">
-      {/* Page Heading */}
-      <div className="max-w-6xl mx-auto text-center px-4 py-10 border-b border-neutral-800">
-        <h1 className="text-5xl font-extrabold bg-linear-to-r from-gray-50 via-gray-200 to-gray-300 bg-clip-text text-transparent tracking-tight drop-shadow-sm">
-          Explore All Properties
+
+      <div className="max-w-6xl mx-auto px-4 py-8 text-center">
+        <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-gray-100 to-gray-300 mb-5">
+          Browse All Properties
         </h1>
-        <p className="text-gray-400 mt-3 text-base">
-          {filteredProperties.length} properties available
-        </p>
+
+        <span className="text-cyan-400 text-md">{filteredProperties.length}</span>
+        <span className="text-md text-gray-300"> properties available</span>
       </div>
 
-      {/* Category Quick Links */}
-      <div className="border-b border-neutral-800 bg-neutral-900/70 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 py-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+      <div className="backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto px-4 py-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           {[
-            { name: 'Apartments', icon: <Building2 size={22} className="text-blue-400" />, link: '/apartments', color: 'hover:border-blue-500' },
-            { name: 'Villas', icon: <Home size={22} className="text-purple-400" />, link: '/villas', color: 'hover:border-purple-500' },
-            { name: 'Plots', icon: <Trees size={22} className="text-green-400" />, link: '/plots', color: 'hover:border-green-500' },
-            { name: 'New Projects', icon: <Hammer size={22} className="text-orange-400" />, link: '/projects', color: 'hover:border-orange-500' }
+            { name: 'Apartments', icon: <Building2 size={20} className="text-blue-400" />, link: '/apartments' },
+            { name: 'Villas', icon: <Home size={20} className="text-purple-400" />, link: '/villas' },
+            { name: 'Plots', icon: <Trees size={20} className="text-green-400" />, link: '/plots' },
+            { name: 'New Projects', icon: <Hammer size={20} className="text-orange-400" />, link: '/projects' }
           ].map((item) => (
             <Link
               key={item.name}
               to={item.link}
-              className={`p-5 rounded-xl border border-neutral-800 bg-neutral-950 transition-all duration-300 ${item.color} hover:bg-neutral-900/80`}
+              className="p-4 rounded-lg border border-neutral-800 bg-neutral-900/20 hover:bg-neutral-900/40 hover:scale-[1.03] transition-all duration-300"
             >
               <div className="flex flex-col items-center gap-2">
-                <div className="p-2 bg-neutral-800/50 rounded-lg">{item.icon}</div>
-                <h3 className="text-white font-semibold text-sm">{item.name}</h3>
-                <p className="text-gray-400 text-xs">View details</p>
+                <div className="p-1.5 bg-neutral-800/40 rounded-md">{item.icon}</div>
+                <h3 className="text-white text-xs font-medium">{item.name}</h3>
+                <p className="text-gray-500 text-[10px]">Explore</p>
               </div>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="sticky top-16 backdrop-blur-lg border-b border-neutral-800/70 shadow-lg shadow-black/20 z-10">
-        <div className="max-w-6xl mx-auto px-5 py-4 flex flex-wrap gap-4 items-center justify-between">
-          {/* Search */}
+      <div className="sticky top-16 backdrop-blur-md z-10 border-b border-neutral-800/50">
+        <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center">
           <div className="relative flex-1 min-w-60">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or location..."
-              className="w-full pl-9 pr-3 py-2.5 bg-neutral-900 text-gray-200 placeholder-gray-500 
+              className="w-full pl-9 pr-3 py-2 bg-neutral-900/20 text-gray-200 placeholder-gray-500 
                          border border-neutral-700 rounded-xl outline-none text-sm
                          hover:border-neutral-600 focus:border-blue-500 transition-all duration-200"
             />
           </div>
-
-          {/* Category Filter */}
-          <div className="relative w-44">
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="appearance-none w-full px-4 py-2.5 bg-neutral-900 border border-neutral-700 
-                         rounded-xl text-sm cursor-pointer text-gray-200 shadow-inner
-                         hover:border-neutral-600 focus:border-blue-500 outline-none transition-all duration-200"
-            >
-              {categories.map((option) => (
-                <option key={option} value={option} style={{ backgroundColor: '#1c1c1c', color: '#e5e5e5' }}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <svg
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
         </div>
       </div>
 
-      {/* Properties */}
       <div className="max-w-6xl mx-auto px-4 py-10">
         {filteredProperties.length === 0 ? (
           <div className="text-center py-24 text-gray-500">
-            <p>No properties found matching your criteria.</p>
+            No properties found matching your criteria.
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -280,11 +243,14 @@ export default function BuyAll() {
               <Link
                 key={property.id}
                 to={property.link}
-                className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:scale-[1.02] transition-transform duration-300"
+                className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
+                           hover:border-neutral-700 hover:scale-[1.02] transition-transform duration-300"
               >
                 <img src={property.image} alt={property.title} className="h-52 w-full object-cover" />
+
                 <div className="p-5">
-                  <h3 className="text-lg font-semibold mb-1 text-gray-100">{property.title}</h3>
+                  <h3 className="text-lg font-semibold text-gray-100 mb-1">{property.title}</h3>
+
                   <p className="text-gray-400 text-sm flex items-center gap-1 mb-3">
                     <MapPin size={14} /> {property.location}
                   </p>
@@ -307,6 +273,7 @@ export default function BuyAll() {
           </div>
         )}
       </div>
+
     </div>
   );
 }

@@ -22,12 +22,12 @@ export default function Dashboard() {
           <div className="grid md:grid-cols-2 gap-10">
             <button
               onClick={() => setUserRole("buyer")}
-              className="relative group bg-neutral-900 border border-neutral-800 rounded-xl p-8 text-left transition-all hover:bg-neutral-900/80 hover:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:ring-offset-2 focus:ring-offset-black"
+              className="relative group bg-neutral-900 border border-neutral-800 rounded-xl p-8 text-left transition-all hover:bg-neutral-900/80 hover:border-amber-600/50 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-black"
             >
               <div className="mb-6">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-800 ring-1 ring-neutral-700/50 group-hover:bg-neutral-800/80 transition-colors">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-800 ring-1 ring-amber-600/30 group-hover:bg-neutral-800/80 group-hover:ring-amber-600/50 transition-colors">
                   <ShoppingBag
-                    className="h-5 w-5 text-neutral-300"
+                    className="h-5 w-5 text-amber-600"
                     strokeWidth={2}
                   />
                 </div>
@@ -43,25 +43,24 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              {/* Features */}
               <div className="mt-6 space-y-2.5">
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber-600" />
                   <span>Advanced property search</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber-600" />
                   <span>Mark favorites and receive alerts instantly</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber-600" />
                   <span>Direct seller communication</span>
                 </div>
               </div>
 
               <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
                 <svg
-                  className="h-5 w-5 text-neutral-400"
+                  className="h-5 w-5 text-amber-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -79,12 +78,12 @@ export default function Dashboard() {
             {/* AGENT CARD */}
             <button
               onClick={() => setUserRole("seller")}
-              className="relative group bg-neutral-900 border border-neutral-800 rounded-xl p-8 text-left transition-all hover:bg-neutral-900/80 hover:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:ring-offset-2 focus:ring-offset-black"
+              className="relative group bg-neutral-900 border border-neutral-800 rounded-xl p-8 text-left transition-all hover:bg-neutral-900/80 hover:border-orange-600/50 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-black"
             >
               <div className="mb-6">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-800 ring-1 ring-neutral-700/50 group-hover:bg-neutral-800/80 transition-colors">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-800 ring-1 ring-orange-600/30 group-hover:bg-neutral-800/80 group-hover:ring-orange-600/50 transition-colors">
                   <Building2
-                    className="h-5 w-5 text-neutral-300"
+                    className="h-5 w-5 text-orange-600"
                     strokeWidth={2}
                   />
                 </div>
@@ -101,22 +100,22 @@ export default function Dashboard() {
 
               <div className="mt-6 space-y-2.5">
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-orange-600" />
                   <span>Unlimited property listings</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-orange-600" />
                   <span>Performance analytics</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-neutral-500">
-                  <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-orange-600" />
                   <span>Lead management tools</span>
                 </div>
               </div>
 
               <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
                 <svg
-                  className="h-5 w-5 text-neutral-400"
+                  className="h-5 w-5 text-orange-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
 import {
   User,
   LogOut,
@@ -12,45 +14,26 @@ import {
   Heart,
   Menu,
   X,
-  Search,
 } from "lucide-react";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const [openMenu, setOpenMenu] = useState(null); 
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSectionOpen, setMobileSectionOpen] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const hoverTimeout = useRef(null);
   const profileRef = useRef(null);
 
-  React.useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes chevronBounce {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-2px);
-        }
-      }
-      
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out");
+      setProfileOpen(false);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   const menuLeft = [
     {
@@ -69,9 +52,8 @@ export default function Navbar() {
       title: "Sell",
       icon: <Building size={16} />,
       links: [
-        { label: "Post Property", to: "/sell/post" },
-        { label: "Pricing Plans", to: "/sell/plans" },
-        { label: "Seller Guide", to: "/sell/guide" },
+        { label: "Post Property", to: "/sell/post-property" },
+        { label: "My Dashboard", to: "/sell/dashboard" },
       ],
     },
     {
@@ -139,15 +121,6 @@ export default function Navbar() {
           <Link to="/" className="text-2xl font-semibold text-white select-none">
             LumiNest
           </Link>
-
-          <div className="hidden md:flex items-center bg-neutral-900 border border-neutral-800 rounded-full px-3 py-1 gap-2">
-            <Search className="text-gray-300" size={16} />
-            <input
-              type="text"
-              placeholder="Search properties"
-              className="bg-transparent outline-none placeholder:text-gray-500 text-sm text-gray-100 w-44"
-            />
-          </div>
         </div>
 
         <div className="hidden lg:flex items-center gap-6 text-gray-300 font-medium">
@@ -193,19 +166,19 @@ export default function Navbar() {
                     }}
                     onMouseLeave={() => closeDesktopMenu(100)}
                   >
-                    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 bg-[rgba(12,12,12,0.98)] border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl">
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 bg-[rgba(12,12,12,0.98)] border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl">
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                         <div className="md:col-span-4">
-                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">
                             {item.title} Categories
                           </h4>
-                          <nav className="flex flex-col gap-2">
+                          <nav className="flex flex-col gap-1.5">
                             {item.links.map((l) => (
                               <Link
                                 key={l.label}
                                 to={l.to}
                                 onClick={() => setOpenMenu(null)}
-                                className="group px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                                className="group px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="group-hover:text-white transition-colors">{l.label}</span>
@@ -220,14 +193,14 @@ export default function Navbar() {
                         </div>
 
                         <div className="md:col-span-5">
-                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Featured Options</h4>
-                          <div className="grid grid-cols-2 gap-3">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">Featured Options</h4>
+                          <div className="grid grid-cols-2 gap-2.5">
                             {item.links.map((l) => (
                               <Link
                                 key={`explore-${l.label}`}
                                 to={l.to}
                                 onClick={() => setOpenMenu(null)}
-                                className="group p-4 rounded-lg bg-white/3 hover:bg-white/6 transition-colors duration-200 text-sm text-gray-200 border border-transparent hover:border-white/10"
+                                className="group p-3.5 rounded-lg bg-white/3 hover:bg-white/6 transition-colors duration-200 text-sm text-gray-200 border border-transparent hover:border-white/10"
                               >
                                 <div className="font-medium group-hover:text-white transition-colors">{l.label}</div>
                                 <div className="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
@@ -236,8 +209,7 @@ export default function Navbar() {
                                   {l.label === 'Plots' && 'Investment opportunities'}
                                   {l.label === 'New Projects' && 'Under construction'}
                                   {l.label === 'Post Property' && 'List your property'}
-                                  {l.label === 'Pricing Plans' && 'Choose your plan'}
-                                  {l.label === 'Seller Guide' && 'Tips & guidelines'}
+                                  {l.label === 'My Dashboard' && 'View your Dashboard'}
                                   {l.label === 'Homes for Rent' && 'Residential rentals'}
                                   {l.label === 'Commercial Spaces' && 'Office & retail'}
                                   {l.label === 'PG & Shared' && 'Shared accommodations'}
@@ -247,7 +219,7 @@ export default function Navbar() {
                             <Link
                               to={`/${item.id}`}
                               onClick={() => setOpenMenu(null)}
-                              className="group p-4 rounded-lg bg-white/5 hover:bg-white/8 transition-colors duration-200 text-sm text-gray-200 border border-white/10 hover:border-white/20 col-span-2"
+                              className="group p-3.5 rounded-lg bg-white/5 hover:bg-white/8 transition-colors duration-200 text-sm text-gray-200 border border-white/10 hover:border-white/20 col-span-2"
                             >
                               <div className="text-center">
                                 <div className="font-semibold group-hover:text-white transition-colors">View All {item.title}</div>
@@ -258,12 +230,12 @@ export default function Navbar() {
                         </div>
 
                         <div className="md:col-span-3">
-                          <h4 className="text-sm text-gray-400 font-semibold mb-4 uppercase tracking-wider">Quick Actions</h4>
-                          <div className="flex flex-col gap-3">
+                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">Quick Actions</h4>
+                          <div className="flex flex-col gap-2.5">
                             <Link
                               to="/contact"
                               onClick={() => setOpenMenu(null)}
-                              className="group flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                              className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                             >
                               <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,7 +247,7 @@ export default function Navbar() {
                             <Link
                               to="/help"
                               onClick={() => setOpenMenu(null)}
-                              className="group flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
+                              className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                             >
                               <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -286,11 +258,11 @@ export default function Navbar() {
                             </Link>
                           </div>
 
-                          <div className="mt-6">
+                          <div className="mt-4">
                             <Link
-                              to={isLoggedIn ? "/sell/post" : "/login"}
+                              to={user ? "/sell/post-property" : "/login"}
                               onClick={() => setOpenMenu(null)}
-                              className="group inline-flex items-center justify-center w-full gap-2 px-6 py-3 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold transition-colors duration-200"
+                              className="group inline-flex items-center justify-center w-full gap-2 px-5 py-2.5 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold transition-colors duration-200"
                             >
                               <span>{item.title === "Sell" ? "List a Property" : `Explore ${item.title}`}</span>
                               <ChevronRight 
@@ -300,12 +272,12 @@ export default function Navbar() {
                             </Link>
                           </div>
 
-                          <div className="mt-6 grid grid-cols-2 gap-3">
-                            <div className="text-center p-3 rounded-lg bg-white/5">
+                          <div className="mt-4 grid grid-cols-2 gap-2.5">
+                            <div className="text-center p-2.5 rounded-lg bg-white/5">
                               <div className="text-lg font-bold text-white">500+</div>
                               <div className="text-xs text-gray-400">Properties</div>
                             </div>
-                            <div className="text-center p-3 rounded-lg bg-white/5">
+                            <div className="text-center p-2.5 rounded-lg bg-white/5">
                               <div className="text-lg font-bold text-white">50+</div>
                               <div className="text-xs text-gray-400">Cities</div>
                             </div>
@@ -334,7 +306,7 @@ export default function Navbar() {
             Contact
           </Link>
 
-          {!isLoggedIn ? (
+          {!user ? (
             <Link
               to="/login"
               className="px-3 py-1 rounded-md bg-white/6 text-white text-sm font-medium hover:bg-white/12 transition"
@@ -346,26 +318,43 @@ export default function Navbar() {
               <button
                 onClick={() => setProfileOpen((p) => !p)}
                 aria-expanded={profileOpen}
-                className="flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-800/70 border border-neutral-700 text-gray-100 hover:bg-neutral-800 transition"
+                className="focus:outline-none focus:ring-2 focus:ring-white/20 rounded-full transition-all hover:ring-2 hover:ring-white/10"
               >
-                <User size={16} />
-                <span className="hidden sm:inline text-sm">John</span>
+                {user?.photoURL ? (
+                  <img 
+                    src={user.photoURL} 
+                    alt="Profile" 
+                    className="w-9 h-9 rounded-full object-cover cursor-pointer border-2 border-neutral-700 hover:border-neutral-600 transition-all"
+                  />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center cursor-pointer border-2 border-neutral-700 hover:border-neutral-600 transition-all">
+                    <User size={18} className="text-white" />
+                  </div>
+                )}
               </button>
 
               {profileOpen && (
                 <div
                   role="menu"
                   aria-label="Account menu"
-                  className="absolute right-0 mt-3 w-56 z-50 bg-[rgba(12,12,12,0.96)] border border-neutral-800 rounded-lg shadow-lg overflow-hidden"
+                  className="absolute right-0 mt-4 w-59 z-50 bg-[rgba(12,12,12,0.96)] border border-neutral-800 rounded-lg shadow-lg overflow-hidden"
                 >
                   <div className="px-4 py-3 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
-                        <User size={16} className="text-white" />
-                      </div>
+                      {user?.photoURL ? (
+                        <img 
+                          src={user.photoURL} 
+                          alt="Profile" 
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                          <User size={16} className="text-white" />
+                        </div>
+                      )}
                       <div>
-                        <div className="text-sm text-white font-medium">John Doe</div>
-                        <div className="text-xs text-gray-400">john@example.com</div>
+                        <div className="text-sm text-white font-medium">{user?.displayName || 'User'}</div>
+                        <div className="text-xs text-gray-400">{user?.email}</div>
                       </div>
                     </div>
                   </div>
@@ -413,10 +402,7 @@ export default function Navbar() {
                     </Link>
 
                     <button
-                      onClick={() => {
-                        setIsLoggedIn(false);
-                        setProfileOpen(false);
-                      }}
+                      onClick={handleLogout}
                       className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition"
                     >
                       <div className="flex items-center gap-3">
@@ -472,18 +458,6 @@ export default function Navbar() {
         </div>
 
         <div className="p-4 space-y-4 overflow-auto h-[calc(100%-64px)]">
-          <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <input
-                placeholder="Search properties"
-                className="w-full px-3 py-2 rounded-md bg-neutral-900 border border-neutral-800 text-gray-200 text-sm outline-none"
-              />
-            </div>
-            <button className="p-2 rounded-md bg-neutral-800/60 hover:bg-neutral-700 transition">
-              <Search className="text-gray-200" size={16} />
-            </button>
-          </div>
-
           <div className="space-y-3">
             {menuLeft.map((section) => {
               const open = mobileSectionOpen === section.id;
@@ -530,7 +504,7 @@ export default function Navbar() {
 
                         <div className="pt-2">
                           <Link
-                            to={isLoggedIn ? "/sell/post" : "/login"}
+                            to={user ? "/sell/post-property" : "/login"}
                             onClick={() => {
                               setMobileOpen(false);
                               setMobileSectionOpen(null);
@@ -548,27 +522,34 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Account area */}
           <div className="pt-4 border-t border-neutral-800">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-600 to-gray-400 flex items-center justify-center">
-                <User size={18} className="text-white" />
-              </div>
+              {user?.photoURL ? (
+                <img 
+                  src={user.photoURL} 
+                  alt="Profile" 
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-linear-to-br from-gray-600 to-gray-400 flex items-center justify-center">
+                  <User size={18} className="text-white" />
+                </div>
+              )}
               <div>
-                <div className="text-sm text-white font-medium">{isLoggedIn ? "John Doe" : "Guest User"}</div>
-                <div className="text-xs text-gray-400">{isLoggedIn ? "john@example.com" : "Not logged in"}</div>
+                <div className="text-sm text-white font-medium">{user ? user.displayName || 'User' : "Guest User"}</div>
+                <div className="text-xs text-gray-400">{user ? user.email : "Not logged in"}</div>
               </div>
             </div>
 
             <div className="mt-4 space-y-2">
-              {isLoggedIn ? (
+              {user ? (
                 <>
                   <Link onClick={() => setMobileOpen(false)} to="/listings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">My Listings</Link>
                   <Link onClick={() => setMobileOpen(false)} to="/favorites" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Favorites</Link>
                   <Link onClick={() => setMobileOpen(false)} to="/settings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Settings</Link>
                   <button
                     onClick={() => {
-                      setIsLoggedIn(false);
+                      handleLogout();
                       setMobileOpen(false);
                     }}
                     className="w-full text-left px-4 py-3 rounded-md text-red-400 hover:bg-red-500/10"

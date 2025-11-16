@@ -16,7 +16,6 @@ export default function Login() {
       setError("");
       const result = await signInWithPopup(auth, googleProvider);
       console.log("User signed in:", result.user.email);
-      // Navigate to home page after successful login
       navigate("/");
     } catch (error) {
       console.error("Google Sign-in Error:", error);
@@ -27,8 +26,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-sans relative overflow-hidden">
-      {/* Background Glow */}
+    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-mono relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute -top-20 -right-20 w-56 h-56 rounded-full 
           bg-linear-to-r from-gray-500/10 via-gray-400/10 to-gray-300/10 
@@ -54,7 +52,6 @@ export default function Login() {
           </span>
         </Link>
 
-        {/* Heading */}
         <div className="flex items-center justify-center flex-col mt-3">
           <p className="text-4xl font-bold bg-linear-to-r from-gray-100 via-gray-300 to-gray-400 bg-clip-text text-transparent">
             Welcome Back
@@ -64,7 +61,6 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Form Fields */}
         <div className="flex flex-col mt-7">
           <label htmlFor="email" className="mb-2 text-sm font-medium text-gray-300">
             Email
@@ -112,7 +108,6 @@ export default function Login() {
           <div className="grow border-t border-[#3F3F46]" />
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
             <p className="text-sm text-red-400">{error}</p>

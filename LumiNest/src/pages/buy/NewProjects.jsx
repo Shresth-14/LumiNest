@@ -16,7 +16,7 @@ export default function NewProjects() {
       priceValue: 7500000,
       configurations: "2, 3 BHK",
       totalUnits: 450,
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1576471721322-443777eed875?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Dec 2025",
       status: "Under Construction",
       completionPercent: 65,
@@ -31,7 +31,7 @@ export default function NewProjects() {
       priceValue: 6000000,
       configurations: "1, 2, 3 BHK",
       totalUnits: 320,
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1691485807654-a796d932d23d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Jun 2026",
       status: "Pre-Launch",
       completionPercent: 25,
@@ -46,7 +46,7 @@ export default function NewProjects() {
       priceValue: 15000000,
       configurations: "3, 4 BHK",
       totalUnits: 200,
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1697729983477-345d7407a0d3?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Mar 2026",
       status: "Under Construction",
       completionPercent: 45,
@@ -61,7 +61,7 @@ export default function NewProjects() {
       priceValue: 8500000,
       configurations: "2, 3, 4 BHK",
       totalUnits: 380,
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1706137967021-7b25c7225f80?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Sep 2025",
       status: "Under Construction",
       completionPercent: 75,
@@ -76,7 +76,7 @@ export default function NewProjects() {
       priceValue: 7000000,
       configurations: "2, 3 BHK",
       totalUnits: 280,
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1573140087145-1447f1ba2302?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Dec 2026",
       status: "Newly Launched",
       completionPercent: 15,
@@ -91,7 +91,7 @@ export default function NewProjects() {
       priceValue: 18000000,
       configurations: "3, 4, 5 BHK",
       totalUnits: 150,
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1736194025313-c233cf672cc7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       possession: "Mar 2027",
       status: "Pre-Launch",
       completionPercent: 10,
@@ -134,15 +134,15 @@ if (status !== "All" || searchText !== "") {
 
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-6 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-8">
           Upcoming Properties
         </h1>
-        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+        <span className="text-amber-600 mt-0 text-md tracking-wide">
           {filteredProjects.length}
         </span>
-        <span className="mt-2 text-md tracking-wide">
+        <span className="mt-2 text-md tracking-wide text-amber-600">
           {" "}
           properties available
         </span>
@@ -194,7 +194,7 @@ if (status !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>
@@ -231,7 +231,7 @@ if (status !== "All" || searchText !== "") {
                     </div>
                     <div className="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-blue-500 rounded-full"
+                        className="h-full bg-amber-600 rounded-full"
                         style={{ width: `${project.completionPercent}%` }}
                       />
                     </div>

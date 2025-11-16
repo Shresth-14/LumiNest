@@ -20,7 +20,7 @@ export default function HomesForRent() {
       area: "1,450 sq ft",
       type: "Apartment",
       furnished: "Semi-Furnished",
-      image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate"
     },
     {
@@ -35,7 +35,7 @@ export default function HomesForRent() {
       area: "1,100 sq ft",
       type: "Apartment",
       furnished: "Fully Furnished",
-      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "15 Days"
     },
     {
@@ -50,7 +50,7 @@ export default function HomesForRent() {
       area: "2,500 sq ft",
       type: "Villa",
       furnished: "Fully Furnished",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate"
     },
     {
@@ -65,7 +65,7 @@ export default function HomesForRent() {
       area: "650 sq ft",
       type: "Apartment",
       furnished: "Semi-Furnished",
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate"
     },
     {
@@ -80,7 +80,7 @@ export default function HomesForRent() {
       area: "1,350 sq ft",
       type: "Apartment",
       furnished: "Unfurnished",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "1 Month"
     },
     {
@@ -95,7 +95,7 @@ export default function HomesForRent() {
       area: "2,000 sq ft",
       type: "Villa",
       furnished: "Semi-Furnished",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "15 Days"
     }
   ];
@@ -135,13 +135,13 @@ if (BHK !== "All" || Type !== "All" || searchText !== "") {
 
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Homes for Rent
         </h1>
-        <span className="text-cyan-400 text-md tracking-wide">{filteredHomes.length}</span>
-        <span className="text-md tracking-wide"> properties available</span>
+        <span className="text-amber-600 text-md tracking-wide">{filteredHomes.length}</span>
+        <span className="text-md tracking-wide text-amber-600"> properties available</span>
       </div>
 
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
@@ -203,7 +203,7 @@ if (BHK !== "All" || Type !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>
@@ -254,7 +254,7 @@ if (BHK !== "All" || Type !== "All" || searchText !== "") {
                       <span className="text-lg font-bold">{home.rent}</span>
                       <p className="text-xs text-gray-500">Deposit: {home.deposit}</p>
                     </div>
-                    <span className="text-blue-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

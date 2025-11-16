@@ -18,7 +18,7 @@ export default function PGShared() {
       sharing: "Single Occupancy",
       gender: "Male",
       meals: "3 Meals",
-      image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["WiFi", "AC", "Laundry"],
       pgType: "PG"
@@ -33,7 +33,7 @@ export default function PGShared() {
       sharing: "Single Occupancy",
       gender: "Female",
       meals: "2 Meals",
-      image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2057&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "5 Days",
       amenities: ["WiFi", "AC", "Security"],
       pgType: "Hostel"
@@ -48,7 +48,7 @@ export default function PGShared() {
       sharing: "Double Sharing",
       gender: "Male",
       meals: "Breakfast Only",
-      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["WiFi", "Laundry", "Common Room"],
       pgType: "PG"
@@ -63,7 +63,7 @@ export default function PGShared() {
       sharing: "Single Occupancy",
       gender: "Female",
       meals: "3 Meals",
-      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "10 Days",
       amenities: ["WiFi", "AC", "Gym", "Security"],
       pgType: "PG"
@@ -78,7 +78,7 @@ export default function PGShared() {
       sharing: "Double Sharing",
       gender: "Unisex",
       meals: "No Meals",
-      image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1556020685-ae41abfc9365?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["WiFi", "Kitchen Access", "Common Area"],
       pgType: "Co-Living"
@@ -93,7 +93,7 @@ export default function PGShared() {
       sharing: "Triple Sharing",
       gender: "Male",
       meals: "3 Meals",
-      image: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1631049035182-249067d7618e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["WiFi", "Study Room", "Laundry"],
       pgType: "PG"
@@ -166,13 +166,13 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
 
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           PG & Shared Accommodations
         </h1>
-        <span className="text-cyan-400 text-md tracking-wide">{filteredPGs.length}</span>
-        <span className="text-md tracking-wide"> options available</span>
+        <span className="text-amber-600 text-md tracking-wide">{filteredPGs.length}</span>
+        <span className="text-md tracking-wide text-amber-600"> options available</span>
       </div>
 
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
@@ -232,7 +232,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>
@@ -283,7 +283,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold">{pg.rent}</span>
-                    <span className="text-purple-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

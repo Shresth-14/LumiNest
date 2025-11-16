@@ -15,7 +15,6 @@ export default function Signup() {
       setError("");
       const result = await signInWithPopup(auth, googleProvider);
       console.log("User signed up:", result.user.email);
-      // Navigate to home page after successful signup
       navigate("/");
     } catch (error) {
       console.error("Google Sign-up Error:", error);
@@ -26,7 +25,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-sans relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-mono relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute -top-20 -right-20 w-56 h-56 rounded-full 
           bg-linear-to-r from-gray-500/10 via-gray-400/10 to-gray-300/10 
@@ -112,7 +111,6 @@ export default function Signup() {
           <div className="grow border-t border-[#3F3F46]" />
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
             <p className="text-sm text-red-400">{error}</p>

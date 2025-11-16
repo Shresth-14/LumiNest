@@ -30,7 +30,7 @@ const myProperties = [
 
 
   return (
-    <div className="min-h-screen bg-black pt-20">
+    <div className="min-h-screen bg-black pt-20 font-mono">
       <div className="border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
@@ -45,7 +45,16 @@ const myProperties = [
             <div className="flex gap-3">
               <button
                 onClick={() => navigate('/sell/post-property')}
-                className="px-4 py-2 text-sm bg-white text-black rounded-lg hover:bg-neutral-200 transition-all font-medium flex items-center gap-2"
+                                className="
+                  inline-flex text-end items-center gap-3
+                  px-5 py-4
+                  bg-orange-500/20 backdrop-blur-md
+                  border border-white/10
+                  text-white 
+                  rounded-lg
+                  transition-all
+                  hover:bg-orange-500/30 hover:border-white/20
+                  no-underline"
               >
                 <Plus className="h-4 w-4" />
                 List Property
@@ -63,10 +72,10 @@ const myProperties = [
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-orange-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <Building2 className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-orange-600/20">
+                <Building2 className="h-5 w-5 text-orange-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">8</span>
             </div>
@@ -74,10 +83,10 @@ const myProperties = [
             <p className="text-xs text-neutral-500">Properties live</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-orange-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <Eye className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-orange-600/20">
+                <Eye className="h-5 w-5 text-orange-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">1.2k</span>
             </div>
@@ -85,10 +94,10 @@ const myProperties = [
             <p className="text-xs text-neutral-500">This month</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-orange-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <MessageSquare className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-orange-600/20">
+                <MessageSquare className="h-5 w-5 text-orange-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">34</span>
             </div>
@@ -96,10 +105,10 @@ const myProperties = [
             <p className="text-xs text-neutral-500">Pending responses</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-orange-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <TrendingUp className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-orange-600/20">
+                <TrendingUp className="h-5 w-5 text-orange-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">+12%</span>
             </div>

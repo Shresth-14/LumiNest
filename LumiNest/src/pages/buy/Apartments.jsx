@@ -18,7 +18,7 @@ export default function Apartments() {
       baths: 2,
       area: "1,850 sq ft",
       image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Ready to Move",
     },
     {
@@ -31,7 +31,7 @@ export default function Apartments() {
       baths: 3,
       area: "2,500 sq ft",
       image:
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop",
+        "https://plus.unsplash.com/premium_photo-1661913412680-c274b6fea096?q=80&w=3131&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Under Construction",
     },
     {
@@ -44,7 +44,7 @@ export default function Apartments() {
       baths: 2,
       area: "1,200 sq ft",
       image:
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop",
+        "https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Ready to Move",
     },
     {
@@ -57,7 +57,7 @@ export default function Apartments() {
       baths: 2,
       area: "1,650 sq ft",
       image:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1624890566121-12f3b84db8ea?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Ready to Move",
     },
     {
@@ -70,7 +70,7 @@ export default function Apartments() {
       baths: 3,
       area: "2,200 sq ft",
       image:
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1647341159891-302156d1bbdf?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Under Construction",
     },
   ];
@@ -109,15 +109,19 @@ if (bhkFilter !== "All" || statusFilter !== "All" || searchText !== "") {
 
 
   return (
-    <div className="min-h-screen text-white pt-20">
+    <div className="min-h-screen text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
-          Luxury Apartments
-        </h1>
-        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+<h1 className="text-4xl md:text-5xl font-bold tracking-tight 
+               font-mono bg-gradient-to-r from-gray-100 to-gray-200 
+               bg-clip-text text-transparent mb-3">
+  Luxury Apartments
+</h1>
+
+
+        <span className="text-amber-600 mt-0 text-md tracking-wide">
           {filteredApartments.length}
         </span>
-        <span className="mt-2 text-md tracking-wide">
+        <span className="mt-0 text-md text-amber-600 tracking-wide">
           {" "}
           properties available
         </span>
@@ -263,7 +267,7 @@ if (bhkFilter !== "All" || statusFilter !== "All" || searchText !== "") {
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold">{apartment.price}</span>
-                    <span className="text-cyan-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

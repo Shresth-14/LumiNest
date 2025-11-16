@@ -27,7 +27,7 @@ const savedProperties = [
 
 
   return (
-    <div className="min-h-screen bg-black pt-20">
+    <div className="min-h-screen bg-black pt-20 font-mono">
       <div className="border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
@@ -51,10 +51,10 @@ const savedProperties = [
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-amber-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <Heart className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-amber-600/20">
+                <Heart className="h-5 w-5 text-amber-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">12</span>
             </div>
@@ -62,10 +62,10 @@ const savedProperties = [
             <p className="text-xs text-neutral-500">Properties you liked</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-amber-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <MessageSquare className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-amber-600/20">
+                <MessageSquare className="h-5 w-5 text-amber-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">5</span>
             </div>
@@ -73,10 +73,10 @@ const savedProperties = [
             <p className="text-xs text-neutral-500">With property owners</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-amber-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <Eye className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-amber-600/20">
+                <Eye className="h-5 w-5 text-amber-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">23</span>
             </div>
@@ -84,10 +84,10 @@ const savedProperties = [
             <p className="text-xs text-neutral-500">Properties visited</p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-neutral-700 transition-all">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-amber-600/30 transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center">
-                <Search className="h-5 w-5 text-neutral-400" strokeWidth={2} />
+              <div className="h-10 w-10 bg-neutral-800 rounded-lg flex items-center justify-center ring-1 ring-amber-600/20">
+                <Search className="h-5 w-5 text-amber-600" strokeWidth={2} />
               </div>
               <span className="text-2xl font-semibold text-white">8</span>
             </div>

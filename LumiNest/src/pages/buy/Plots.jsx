@@ -9,46 +9,47 @@ export default function Plots() {
   const allPlots = [
     {
       id: 1,
-      title: "Residential Plot in Gated Community",
+      title: "Residential Plot",
       location: "Whitefield, Bangalore",
       price: "₹1.8 Cr",
       priceValue: 18000000,
       area: "2,400 sq ft",
       dimension: "40x60 ft",
       image:
-        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1655319446878-44e5c1e31551?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Residential",
       status: "Clear Title",
       facing: "East",
     },
     {
       id: 2,
-      title: "Commercial Plot on Main Road",
+      title: "Commercial Plot",
       location: "Pune, Maharashtra",
       price: "₹3.2 Cr",
       priceValue: 32000000,
       area: "3,600 sq ft",
       dimension: "60x60 ft",
       image:
-        "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1601622962666-d0b6d43a7ac7?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Commercial",
       status: "Clear Title",
       facing: "North",
     },
     {
       id: 3,
-      title: "Agricultural Land with Water Access",
+      title: "Agricultural Land",
       location: "Nashik, Maharashtra",
       price: "₹45 Lakhs",
       priceValue: 4500000,
       area: "1 Acre",
       dimension: "200x217 ft",
       image:
-        "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1702357013751-69df806ce4c5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Agricultural",
       status: "Clear Title",
       facing: "South",
     },
+
     {
       id: 4,
       title: "Corner Plot in DTCP Approved Layout",
@@ -58,21 +59,20 @@ export default function Plots() {
       area: "3,000 sq ft",
       dimension: "50x60 ft",
       image:
-        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop",
-      type: "Residential",
+         "https://plus.unsplash.com/premium_photo-1668456435433-fb89969b0a02?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       status: "DTCP Approved",
       facing: "Corner",
     },
     {
       id: 5,
-      title: "Investment Plot Near IT Park",
+      title: "Investment Plot",
       location: "Chennai, Tamil Nadu",
       price: "₹2.8 Cr",
       priceValue: 28000000,
       area: "2,800 sq ft",
       dimension: "40x70 ft",
       image:
-        "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1761234800130-432be3b3781e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Commercial",
       status: "Clear Title",
       facing: "West",
@@ -86,7 +86,7 @@ export default function Plots() {
       area: "4,000 sq ft",
       dimension: "50x80 ft",
       image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1629997777186-3ccf91c2e009?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Residential",
       status: "Clear Title",
       facing: "East",
@@ -123,15 +123,15 @@ if (selectedType !== "All" || searchText !== "") {
 
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Plots For Sale
         </h1>
-        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+        <span className="text-amber-600 mt-0 text-md tracking-wide">
           {filteredPlots.length}
         </span>
-        <span className="mt-2 text-md tracking-wide">
+        <span className="mt-2 text-md tracking-wide text-amber-600">
           {" "}
           properties available
         </span>
@@ -192,7 +192,7 @@ if (selectedType !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>
@@ -235,14 +235,14 @@ if (selectedType !== "All" || searchText !== "") {
                   </div>
 
                   <div className="mb-3">
-                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">
+                    <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs rounded border border-amber-500/30">
                       {plot.status}
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold">{plot.price}</span>
-                    <span className="text-green-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

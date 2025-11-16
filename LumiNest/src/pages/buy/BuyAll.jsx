@@ -16,7 +16,7 @@ export default function BuyAll() {
       beds: 3,
       baths: 2,
       area: "1,850 sq ft",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Ready to Move",
       link: "/apartments"
     },
@@ -30,7 +30,7 @@ export default function BuyAll() {
       beds: 4,
       baths: 3,
       area: "2,500 sq ft",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1661913412680-c274b6fea096?q=80&w=3131&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Under Construction",
       link: "/apartments"
     },
@@ -44,7 +44,7 @@ export default function BuyAll() {
       beds: 2,
       baths: 2,
       area: "1,200 sq ft",
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "Ready to Move",
       link: "/apartments"
     },
@@ -60,7 +60,7 @@ export default function BuyAll() {
       beds: 4,
       baths: 4,
       area: "4,500 sq ft",
-      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop",
+      image: "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/villas"
     },
     {
@@ -73,7 +73,7 @@ export default function BuyAll() {
       beds: 4,
       baths: 3,
       area: "3,800 sq ft",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1643297550841-1386b3a10612?q=80&w=2453&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/villas"
     },
     {
@@ -86,7 +86,7 @@ export default function BuyAll() {
       beds: 5,
       baths: 5,
       area: "6,000 sq ft",
-      image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1709744873177-714d7ab0fe02?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/villas"
     },
 
@@ -100,7 +100,7 @@ export default function BuyAll() {
       priceValue: 18000000,
       area: "2,400 sq ft",
       dimension: "40x60 ft",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1655319446878-44e5c1e31551?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/plots"
     },
     {
@@ -112,7 +112,7 @@ export default function BuyAll() {
       priceValue: 32000000,
       area: "3,600 sq ft",
       dimension: "60x60 ft",
-      image: "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1601622962666-d0b6d43a7ac7?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/plots"
     },
     {
@@ -124,7 +124,7 @@ export default function BuyAll() {
       priceValue: 35000000,
       area: "4,000 sq ft",
       dimension: "50x80 ft",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1629997777186-3ccf91c2e009?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/plots"
     },
 
@@ -182,21 +182,21 @@ const filteredProperties = allProperties.filter((property) => {
 });
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-24">
+    <div className="min-h-screen bg-neutral-950 text-white pt-24 font-mono">
 
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-gray-100 to-gray-300 mb-5">
           Browse All Properties
         </h1>
 
-        <span className="text-cyan-400 text-md">{filteredProperties.length}</span>
-        <span className="text-md text-gray-300"> properties available</span>
+        <span className="text-amber-600 text-md">{filteredProperties.length}</span>
+        <span className="text-md text-amber-600"> properties available</span>
       </div>
 
       <div className="backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 py-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           {[
-            { name: 'Apartments', icon: <Building2 size={20} className="text-blue-400" />, link: '/apartments' },
+            { name: 'Apartments', icon: <Building2 size={20} className="text-amber-600" />, link: '/apartments' },
             { name: 'Villas', icon: <Home size={20} className="text-purple-400" />, link: '/villas' },
             { name: 'Plots', icon: <Trees size={20} className="text-green-400" />, link: '/plots' },
             { name: 'New Projects', icon: <Hammer size={20} className="text-orange-400" />, link: '/projects' }
@@ -264,7 +264,7 @@ const filteredProperties = allProperties.filter((property) => {
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold text-gray-100">{property.price}</span>
-                    <span className="text-blue-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

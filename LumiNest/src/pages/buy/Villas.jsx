@@ -15,7 +15,7 @@ export default function Villas() {
       beds: 4,
       baths: 4,
       area: "4500 sq ft",
-      img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800",
+      img: "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       features: ["Pool", "Garden", "Parking"],
     },
     {
@@ -26,7 +26,7 @@ export default function Villas() {
       beds: 4,
       baths: 3,
       area: "3800 sq ft",
-      img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
+      img: "https://images.unsplash.com/photo-1643297550841-1386b3a10612?q=80&w=2453&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       features: ["Garden", "Terrace"],
     },
     {
@@ -37,7 +37,7 @@ export default function Villas() {
       beds: 5,
       baths: 5,
       area: "6000 sq ft",
-      img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+      img: "https://images.unsplash.com/photo-1709744873177-714d7ab0fe02?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       features: ["Pool", "Beach Access"],
     },
     {
@@ -48,7 +48,7 @@ export default function Villas() {
       beds: 3,
       baths: 3,
       area: "3200 sq ft",
-      img: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800",
+      img: "https://plus.unsplash.com/premium_photo-1682377521697-bc598b52b08a?q=80&w=2415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       features: ["Gym", "Garden"],
     },
     {
@@ -59,7 +59,7 @@ export default function Villas() {
       beds: 5,
       baths: 4,
       area: "5500 sq ft",
-      img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800",
+      img: "https://plus.unsplash.com/premium_photo-1694475571402-3c76c5ecf9f7?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       features: ["Valley View", "Garden"],
     },
   ];
@@ -91,15 +91,15 @@ if (bhkFilter !== "All" || searchText !== "") {
 }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Luxury Villas
         </h1>
-        <span className="text-cyan-400 mt-0 text-md tracking-wide">
+        <span className="text-amber-600 mt-0 text-md tracking-wide">
           {filteredVillas.length}
         </span>
-        <span className="mt-2 text-md tracking-wide">
+        <span className="mt-2 text-md tracking-wide text-amber-600">
           {" "}
           properties available
         </span>
@@ -159,7 +159,7 @@ if (bhkFilter !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>
@@ -213,7 +213,7 @@ if (bhkFilter !== "All" || searchText !== "") {
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold">{villas.price}</span>
-                    <span className="text-purple-400 text-sm">View →</span>
+                    <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

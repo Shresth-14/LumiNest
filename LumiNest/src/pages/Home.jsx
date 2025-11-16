@@ -76,12 +76,11 @@ export default function Home() {
               </div>
             </div>
 
-
             <div
               className="bg-orange-500/30 backdrop-blur-md border border-white/10 
               p-6 rounded-2xl w-68 h-35 shadow-md transition-all"
             >
-              <div className="flex items-center gap-5 mb-2 mt-3 ml-4">
+              <div className="flex items-center gap-5 mb-2 mt-3 ml-0">
                 <span className="w-13 h-13 bg-white/15 rounded-full flex items-center justify-center">
                   <Zap className="w-7 h-7 text-white" />
                 </span>
@@ -184,9 +183,9 @@ export default function Home() {
               </div>
             </Link>
 
-        <Link
-  to="/buy"
-  className="
+            <Link
+              to="/buy"
+              className="
     group relative overflow-hidden
     bg-white/5 
     border border-orange-400/30 
@@ -197,16 +196,15 @@ export default function Home() {
     flex items-center justify-center 
     min-h-[200px] rounded-xl h-fit
   "
->
-  <div className="text-center py-8">
-    <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-      <ArrowRight size={24} className="text-white" />
-    </div>
+            >
+              <div className="text-center py-8">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <ArrowRight size={24} className="text-white" />
+                </div>
 
-    <h3 className="text-white text-lg font-bold">View All</h3>
-  </div>
-</Link>
-
+                <h3 className="text-white text-lg font-bold">View All</h3>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -259,9 +257,7 @@ export default function Home() {
                 className="p-10 bg-neutral-900/50 backdrop-blur-sm border-2 border-neutral-800 hover:bg-neutral-900 hover:shadow-2xl hover:shadow-orange-600/20 hover:border-orange-600/50 transition-all group rounded-2xl"
               >
                 <div className="w-16 h-16 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform rounded-xl">
-                  <span className="text-2xl font-bold text-white">
-                    {i + 1}
-                  </span>
+                  <span className="text-2xl font-bold text-white">{i + 1}</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-linear-to-r group-hover:from-orange-600 group-hover:to-amber-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                   {service.title}
@@ -273,55 +269,51 @@ export default function Home() {
         </div>
       </section>
 
-     <section className="relative min-h-screen h-screen snap-start snap-always py-32 px-4 bg-neutral-950 flex items-center overflow-hidden">
+      <section className="relative min-h-screen h-screen snap-start snap-always py-32 px-4 bg-neutral-950 flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/20 blur-[140px] rounded-full" />
+          <div className="absolute bottom-0 -left-10 w-80 h-80 bg-amber-500/10 blur-[160px] rounded-full" />
+        </div>
 
-  <div className="absolute inset-0">
-    <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/20 blur-[140px] rounded-full" />
-    <div className="absolute bottom-0 -left-10 w-80 h-80 bg-amber-500/10 blur-[160px] rounded-full" />
-  </div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-denim.png')] opacity-[0.03] pointer-events-none" />
 
-  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-denim.png')] opacity-[0.03] pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto text-center w-full">
+          <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]">
+            Ready to Find Your
+            <br />
+            <span className="text-transparent bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text">
+              Dream Home?
+            </span>
+          </h2>
 
-  <div className="relative max-w-5xl mx-auto text-center w-full">
-    <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]">
-      Ready to Find Your
-      <br />
-      <span className="text-transparent bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text">
-        Dream Home?
-      </span>
-    </h2>
+          <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+            Connect with our expert team and let us guide you to the perfect
+            property that matches your vision and lifestyle.
+          </p>
 
-    <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-      Connect with our expert team and let us guide you to the perfect property 
-      that matches your vision and lifestyle.
-    </p>
-
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-
-      <Link
-        to="/apartments"
-        className="inline-flex items-center gap-3 px-8 py-4 
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link
+              to="/apartments"
+              className="inline-flex items-center gap-3 px-8 py-4 
   bg-orange-500/20 backdrop-blur-md border border-white/10
   text-white font-semibold rounded-lg transition-all 
   hover:bg-orange-500/30 hover:border-white/20
   no-underline"
-      >
-        Browse Properties
-      </Link>
+            >
+              Browse Properties
+            </Link>
 
-      <Link
-        to="/contact"
-        className="px-10 py-4 rounded-xl border border-orange-400/30 bg-white/5 backdrop-blur-md
+            <Link
+              to="/contact"
+              className="px-10 py-4 rounded-xl border border-orange-400/30 bg-white/5 backdrop-blur-md
                   font-semibold hover:bg-white/10
                  transition-all text-amber-600"
-      >
-        Contact Us
-      </Link>
-
-    </div>
-  </div>
-</section>
-
+            >
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <footer className="snap-start bg-neutral-900 border-t border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-12 w-full">

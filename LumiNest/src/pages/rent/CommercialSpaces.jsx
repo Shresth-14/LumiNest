@@ -18,7 +18,7 @@ export default function CommercialSpaces() {
       capacity: "50-60 seats",
       furnished: "Fully Furnished",
       image:
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["AC", "Parking", "Cafeteria"],
     },
@@ -33,7 +33,7 @@ export default function CommercialSpaces() {
       capacity: "High Footfall",
       furnished: "Shell",
       image:
-        "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1567958451986-2de427a4a0be?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "15 Days",
       amenities: ["AC", "Security", "Mall Parking"],
     },
@@ -48,7 +48,7 @@ export default function CommercialSpaces() {
       capacity: "80-100 seats",
       furnished: "Fully Furnished",
       image:
-        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["WiFi", "Cafeteria", "Meeting Rooms"],
     },
@@ -63,7 +63,7 @@ export default function CommercialSpaces() {
       capacity: "Heavy Storage",
       furnished: "Bare Shell",
       image:
-        "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=2035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "1 Month",
       amenities: ["24/7 Access", "Loading Dock", "Security"],
     },
@@ -78,7 +78,7 @@ export default function CommercialSpaces() {
       capacity: "60-70 Covers",
       furnished: "Semi-Furnished",
       image:
-        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "Immediate",
       amenities: ["Kitchen Setup", "Parking", "AC"],
     },
@@ -93,7 +93,7 @@ export default function CommercialSpaces() {
       capacity: "3-4 Rooms",
       furnished: "Unfurnished",
       image:
-        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       available: "15 Days",
       amenities: ["AC", "Waiting Area", "Parking"],
     },
@@ -124,15 +124,15 @@ export default function CommercialSpaces() {
     activeFiltersCount = 0;
   }
   return (
-    <div className="min-h-screen bg-neutral-950 text-white pt-20">
+    <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Commercial Spaces
         </h1>
-        <span className="text-cyan-400 text-md tracking-wide">
+        <span className="text-amber-600 text-md tracking-wide">
           {filteredSpaces.length}
         </span>
-        <span className="text-md tracking-wide"> spaces available</span>
+        <span className="text-md tracking-wide text-amber-600"> spaces available</span>
       </div>
 
       <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
@@ -190,7 +190,7 @@ export default function CommercialSpaces() {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 transition"
+              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
             >
               Clear All
             </button>

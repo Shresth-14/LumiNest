@@ -135,9 +135,9 @@ if (status !== "All" || searchText !== "") {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20">
-      <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
-          Luxury Apartments
+      <div className="max-w-6xl mx-auto px-4 py-6 text-center">
+        <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-8">
+          Upcoming Properties
         </h1>
         <span className="text-cyan-400 mt-0 text-md tracking-wide">
           {filteredProjects.length}

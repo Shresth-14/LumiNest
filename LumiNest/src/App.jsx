@@ -12,17 +12,16 @@ import Villas from "./pages/buy/Villas";
 import Plots from "./pages/buy/Plots";
 import NewProjects from "./pages/buy/NewProjects";
 import PostProperty from "./pages/sell/PostProperty";
-import PricingPlans from "./pages/sell/PricingPlans";
-import SellerGuide from "./pages/sell/SellerGuide";
+import Dashboard from "./pages/sell/Dashboard";
 import HomesForRent from "./pages/rent/HomesForRent";
 import CommercialSpaces from "./pages/rent/CommercialSpaces";
 import PGShared from "./pages/rent/PGShared";
+import Contact from "./pages/Contact";
 
 export default function App() {
   const location = useLocation();
   
 
-// inside component:
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("Logged user:", user);
@@ -50,14 +49,16 @@ onAuthStateChanged(auth, (user) => {
         <Route path="/projects" element={<NewProjects />} />
 
         {/* Sell Section Routes */}
-        <Route path="/sell/post" element={<PostProperty />} />
-        <Route path="/sell/plans" element={<PricingPlans />} />
-        <Route path="/sell/guide" element={<SellerGuide />} />
+        <Route path="/sell/post-property" element={<PostProperty />} />
+        <Route path="/sell/dashboard" element={<Dashboard />} />
 
         {/* Rent Section Routes */}
         <Route path="/rent/homes" element={<HomesForRent />} />
         <Route path="/rent/commercial" element={<CommercialSpaces />} />
         <Route path="/rent/pg" element={<PGShared />} />
+
+        {/* Contact Page Route */}
+        <Route path="/contact" element={<Contact />} />
 
       </Routes>
     </div>

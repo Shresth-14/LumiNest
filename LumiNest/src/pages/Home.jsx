@@ -1,71 +1,8 @@
-import React, { useState } from "react";
-import {
-  Search,
-  ChevronDown,
-  MapPin,
-  Bed,
-  Bath,
-  Square,
-  ArrowRight,
-  Phone,
-  Mail,
-} from "lucide-react";
+import React from "react";
+import { ArrowRight, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [selectedCity, setSelectedCity] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const cities = [
-    "Delhi",
-    "Mumbai",
-    "Bangalore",
-    "Hyderabad",
-    "Pune",
-    "Chennai",
-    "Kolkata",
-    "Gurgaon",
-  ];
-
-  const featuredProperties = [
-    {
-      id: 1,
-      name: "Skyline Heights",
-      location: "Downtown Metro City",
-      price: "₹2.5 Cr",
-      bedrooms: "3 BHK",
-      bathrooms: "2",
-      area: "1600 sq ft",
-      image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
-      slug: "skyline-heights",
-    },
-    {
-      id: 2,
-      name: "Ocean View Residency",
-      location: "Coastal Boulevard",
-      price: "₹3.8 Cr",
-      bedrooms: "4 BHK",
-      bathrooms: "3",
-      area: "2400 sq ft",
-      image:
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
-      slug: "ocean-view-residency",
-    },
-    {
-      id: 3,
-      name: "Greenwood Villas",
-      location: "Green Valley Hills",
-      price: "₹5.2 Cr",
-      bedrooms: "5 BHK",
-      bathrooms: "4",
-      area: "3200 sq ft",
-      image:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
-      slug: "greenwood-villas",
-    },
-  ];
-
   const stats = [
     { value: "500+", label: "Properties Listed" },
     { value: "200+", label: "Happy Clients" },
@@ -74,328 +11,436 @@ export default function Home() {
   ];
 
   return (
-    <main className="w-full min-h-screen bg-black text-white font-sans">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        {/* Background */}
+    <main className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white font-sans">
+      <section className="relative min-h-screen h-screen snap-start snap-always pt-20 pb-16 flex items-center">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1423768164017-3f27c066407f?auto=format&fit=crop&q=80&w=2070"
-            alt="Luxury Home"
-            className="w-full h-full object-cover opacity-25"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Luxury Property"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 w-11/12 max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-center justify-between gap-12">
-          {/* Left Text */}
-          <div className="md:w-1/2 text-center md:text-left">
-            <p className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-              Find Your{" "}
-              <p className="text-gray-300 block md:inline">
-                Dream Home
-              </p>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-none tracking-tight">
+              LumiNest
+            </h1>
+
+            <p className="text-2xl md:text-3xl text-gray-300 mb-6 font-light">
+              Illuminating Your Path Home
             </p>
-          </div>
 
-          {/* Right Search */}
-          <div className="md:w-1/2 flex justify-start md:justify-end">
-            <div className="relative w-full max-w-xl">
-              <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-full overflow-hidden shadow-2xl border border-gray-300">
-                {/* City Dropdown */}
-                <div className="relative border-r border-gray-200">
-                  <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center gap-2 px-6 py-5 text-gray-700 hover:bg-gray-100 transition-colors"
-                  >
-                    <MapPin size={20} className="text-gray-500" />
-                    <span className="text-sm font-medium">
-                      {selectedCity || "Select City"}
-                    </span>
-                    <ChevronDown
-                      size={16}
-                      className={`text-gray-400 transition-transform ${
-                        isDropdownOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
+            <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl">
+              With a focus on modern design, we create homes that blend
+              functionality with beauty.
+            </p>
 
-                  {isDropdownOpen && (
-                    <>
-                      <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50">
-                        {cities.map((city, index) => (
-                          <button
-                            key={index}
-                            onClick={() => {
-                              setSelectedCity(city);
-                              setIsDropdownOpen(false);
-                            }}
-                            className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                          >
-                            {city}
-                          </button>
-                        ))}
-                      </div>
-                      <div
-                        className="fixed inset-0 z-40"
-                        onClick={() => setIsDropdownOpen(false)}
-                      ></div>
-                    </>
-                  )}
-                </div>
-
-                {/* Input */}
-                <input
-                  type="text"
-                  placeholder="Search properties, localities, or projects"
-                  className="flex-1 px-10 py-4 text-gray-700 placeholder-gray-400 outline-none text-sm bg-transparent"
-                />
-
-                {/* Search Button */}
-                <button className="px-8 py-5 bg-black text-white hover:bg-gray-900 transition-colors">
-                  <Search size={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">
-                {stat.value}
-              </div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Properties */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured Properties
-          </h2>
-          <p className="text-gray-400 text-lg">
-            Handpicked properties for discerning buyers
-          </p>
-        </div>
-
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProperties.map((property) => (
-            <Link
-              key={property.id}
-              to={`/apartments/${property.slug}`}
-              className="group bg-neutral-900 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-300"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={property.image}
-                  alt={property.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                  <span className="text-white text-sm font-semibold">
-                    {property.price}
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 text-left">
-                <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
-                  <MapPin size={14} />
-                  <span>{property.location}</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-4 group-hover:text-gray-300 transition-colors">
-                  {property.name}
-                </h3>
-                <div className="flex items-center justify-between text-sm text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <Bed size={16} />
-                    <span>{property.bedrooms}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Bath size={16} />
-                    <span>{property.bathrooms}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Square size={16} />
-                    <span>{property.area}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link
-            to="/apartments"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            View All Properties
-            <ArrowRight size={20} />
-          </Link>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="py-20 bg-neutral-900 px-4">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
-          <p className="text-gray-400 text-lg">
-            Comprehensive solutions for all your real estate needs
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {[
-            {
-              icon: <Search size={24} className="text-black" />,
-              title: "Buy Property",
-              desc: "Explore our extensive collection of premium properties and find your perfect home.",
-            },
-            {
-              icon: <MapPin size={24} className="text-black" />,
-              title: "Sell Property",
-              desc: "List your property with us and reach thousands of verified buyers quickly.",
-            },
-            {
-              icon: <Bed size={24} className="text-black" />,
-              title: "Rent Property",
-              desc: "Find rental homes and commercial spaces that fit your budget and requirements.",
-            },
-          ].map((service, index) => (
-            <div
-              key={index}
-              className="p-8 bg-black rounded-2xl border border-neutral-800 hover:border-neutral-700 transition-colors"
-            >
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6 mx-auto md:mx-0">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-gray-400">{service.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Find Your Dream Home?
-          </h2>
-          <p className="text-gray-400 text-lg mb-8">
-            Connect with our expert team and let us help you find the perfect
-            property.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/apartments"
-              className="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center gap-3 px-8 py-4 
+  bg-orange-500/20 backdrop-blur-md border border-white/10
+  text-white font-semibold rounded-lg transition-all 
+  hover:bg-orange-500/30 hover:border-white/20
+  no-underline"
             >
-              Browse Properties
+              <span>Start Building</span>
+              <ArrowRight
+                size={20}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </Link>
-            <Link
-              to="/contact"
-              className="px-8 py-4 border border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition-colors"
+          </div>
+
+          <div className="absolute right-8 top-1/2 -translate-y-1/2 space-y-4 hidden lg:block">
+            <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl w-68 h-25 shadow-2xl border border-white/20 hover:bg-white/20 transition-all items-center justify-center">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-white font-bold text-lg align-middle">
+                  Our Latest Projects
+                </p>
+                <div className="w-10 h-10 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <ArrowRight size={20} className="text-white" />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl w-68 h-25 shadow-2xl border border-white/20 hover:bg-white/20 transition-all">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-white font-bold text-lg items-center justify-center">
+                  Meet Our Experts
+                </p>
+                <div className="w-10 h-10 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <ArrowRight size={20} className="text-white" />
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              className="bg-orange-500/30 backdrop-blur-md border border-white/10 
+              p-6 rounded-2xl w-68 h-35 shadow-md transition-all"
             >
-              Contact Us
-            </Link>
+              <div className="flex items-center gap-5 mb-2 mt-3 ml-4">
+                <span className="w-13 h-13 bg-white/15 rounded-full flex items-center justify-center">
+                  <Zap className="w-7 h-7 text-white" />
+                </span>
+                <h3 className="text-white font-bold text-lg">
+                  LumiNest Smart Living Solutions
+                </h3>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-neutral-900 py-12 px-4">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">LumiNest</h3>
-            <p className="text-gray-400 text-sm">
-              Your trusted partner in finding the perfect home.
+      <section className="relative min-h-screen h-screen snap-start snap-always py-12 px-4 bg-black flex items-center overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="mb-0">
+            <div className="inline-block bg-linear-to-r from-orange-600 via-amber-600 to-orange-500 px-4 py-1 mb-4 rounded-md">
+              <span className="text-white font-bold text-sm uppercase tracking-wider">
+                Categories
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white">
+              Browse Listings By
+              <br />
+              <span className="text-gray-400">Categories</span>
+            </h2>
+            <p className="text-gray-400 text-base">
+              Curated by expert real estate agents!
             </p>
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li>
-                <Link
-                  to="/apartments"
-                  className="hover:text-white transition-colors"
-                >
-                  Buy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/apartments"
-                  className="hover:text-white transition-colors"
-                >
-                  Sell
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/apartments"
-                  className="hover:text-white transition-colors"
-                >
-                  Rent
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li>
-                <Link
-                  to="/about"
-                  className="hover:text-white transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="hover:text-white transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/careers"
-                  className="hover:text-white transition-colors"
-                >
-                  Careers
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li className="flex items-center gap-2">
-                <Phone size={14} />
-                <span>+91 98765 43210</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} />
-                <span>info@luminest.com</span>
-              </li>
-            </ul>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto">
+            <Link
+              to="/apartments"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 rounded-xl h-fit"
+            >
+              <div className="aspect-video overflow-hidden">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Apartment"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black via-black/90 to-transparent">
+                <h3 className="text-xl font-bold mb-1 text-white">Apartment</h3>
+                <p className="text-gray-400 text-xs">175 Properties</p>
+              </div>
+            </Link>
+
+            <Link
+              to="/villas"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 rounded-xl h-fit"
+            >
+              <div className="aspect-video overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1600252016254-f3edb5f3ae95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Farmhouse"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black via-black/90 to-transparent">
+                <h3 className="text-xl font-bold mb-1 text-white">Farmhouse</h3>
+                <p className="text-gray-400 text-xs">42 Properties</p>
+              </div>
+            </Link>
+
+            <Link
+              to="/apartments"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl h-fit"
+            >
+              <div className="aspect-video overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Condominium"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black via-black/90 to-transparent">
+                <h3 className="text-xl font-bold mb-1 text-white">
+                  Condominium
+                </h3>
+                <p className="text-gray-400 text-xs">4 Properties</p>
+              </div>
+            </Link>
+
+            <Link
+              to="/villas"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 lg:col-span-2 rounded-xl h-fit"
+            >
+              <div className="relative h-65 overflow-hidden w-full">
+                <img
+                  src="https://images.unsplash.com/photo-1571168538867-ad36fe110cc4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Bungalow"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black via-black/90 to-transparent">
+                <h3 className="text-xl font-bold mb-1 text-white">Bungalow</h3>
+                <p className="text-gray-400 text-xs">8 Properties</p>
+              </div>
+            </Link>
+
+        <Link
+  to="/buy"
+  className="
+    group relative overflow-hidden
+    bg-white/5 
+    border border-orange-400/30 
+    backdrop-blur-md
+    hover:bg-orange-200/10
+    mt-7
+    transition-all duration-300
+    flex items-center justify-center 
+    min-h-[200px] rounded-xl h-fit
+  "
+>
+  <div className="text-center py-8">
+    <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+      <ArrowRight size={24} className="text-white" />
+    </div>
+
+    <h3 className="text-white text-lg font-bold">View All</h3>
+  </div>
+</Link>
+
           </div>
         </div>
-        <div className="border-t border-neutral-800 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; 2025 LumiNest. All rights reserved.</p>
+      </section>
+
+      <section className="snap-start pt-20 pb-18 bg-neutral-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-5xl md:text-6xl font-bold mb-3 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 bg-clip-text text-transparent">
+                  {stat.value}
+                </div>
+                <div className="text-gray-400 text-sm uppercase tracking-wider font-semibold">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="min-h-screen h-screen snap-start snap-always bg-black px-4 flex items-center">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+              Our <span className="text-gray-400">Services</span>
+            </h2>
+            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
+              Comprehensive real estate solutions tailored to your needs
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Buy Property",
+                des: "Explore our extensive collection of premium properties. Find your perfect home with expert guidance and transparent pricing.",
+              },
+              {
+                title: "Sell Property",
+                des: "List your property with us and reach thousands of verified buyers. Get the best value with our marketing expertise.",
+              },
+              {
+                title: "Rent Property",
+                des: "Find rental homes and commercial spaces that fit your budget. Flexible terms and verified listings.",
+              },
+            ].map((service, i) => (
+              <div
+                key={i}
+                className="p-10 bg-neutral-900/50 backdrop-blur-sm border-2 border-neutral-800 hover:bg-neutral-900 hover:shadow-2xl hover:shadow-orange-600/20 hover:border-orange-600/50 transition-all group rounded-2xl"
+              >
+                <div className="w-16 h-16 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform rounded-xl">
+                  <span className="text-2xl font-bold text-white">
+                    {i + 1}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-linear-to-r group-hover:from-orange-600 group-hover:to-amber-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                  {service.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed">{service.des}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+     <section className="relative min-h-screen h-screen snap-start snap-always py-32 px-4 bg-neutral-950 flex items-center overflow-hidden">
+
+  <div className="absolute inset-0">
+    <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/20 blur-[140px] rounded-full" />
+    <div className="absolute bottom-0 -left-10 w-80 h-80 bg-amber-500/10 blur-[160px] rounded-full" />
+  </div>
+
+  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-denim.png')] opacity-[0.03] pointer-events-none" />
+
+  <div className="relative max-w-5xl mx-auto text-center w-full">
+    <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]">
+      Ready to Find Your
+      <br />
+      <span className="text-transparent bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text">
+        Dream Home?
+      </span>
+    </h2>
+
+    <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+      Connect with our expert team and let us guide you to the perfect property 
+      that matches your vision and lifestyle.
+    </p>
+
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+
+      <Link
+        to="/apartments"
+        className="inline-flex items-center gap-3 px-8 py-4 
+  bg-orange-500/20 backdrop-blur-md border border-white/10
+  text-white font-semibold rounded-lg transition-all 
+  hover:bg-orange-500/30 hover:border-white/20
+  no-underline"
+      >
+        Browse Properties
+      </Link>
+
+      <Link
+        to="/contact"
+        className="px-10 py-4 rounded-xl border border-orange-400/30 bg-white/5 backdrop-blur-md
+                  font-semibold hover:bg-white/10
+                 transition-all text-amber-600"
+      >
+        Contact Us
+      </Link>
+
+    </div>
+  </div>
+</section>
+
+
+      <footer className="snap-start bg-neutral-900 border-t border-neutral-800">
+        <div className="max-w-7xl mx-auto px-6 py-12 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-3xl font-bold text-white mb-4">LumiNest</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Creating timeless properties that blend modern design with
+                functionality. Your dream home awaits.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wide mb-4 text-amber-600">
+                About
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    to="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Our Story
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider  text-amber-600 mb-4">
+                Services
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    to="/apartments"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Buy Property
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/post-property"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Sell Property
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/apartments"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Rent Property
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider  text-amber-600 mb-4">
+                Connect
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <button className="text-gray-400 hover:text-white transition-colors">
+                    Twitter
+                  </button>
+                </li>
+                <li>
+                  <button className="text-gray-400 hover:text-white transition-colors">
+                    LinkedIn
+                  </button>
+                </li>
+                <li>
+                  <button className="text-gray-400 hover:text-white transition-colors">
+                    Instagram
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-gray-400 text-sm">
+              © 2025 LumiNest. All rights reserved.
+            </div>
+            <div className="flex items-center gap-8 text-sm">
+              <Link
+                to="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Terms of Service
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </main>

@@ -53,7 +53,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 space-y-4 hidden lg:block">
+         <div className="absolute right-8 inset-y-0 my-auto space-y-4 hidden lg:flex flex-col justify-center">
             <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl w-68 h-25 shadow-2xl border border-white/20 hover:bg-white/20 transition-all items-center justify-center">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-white font-bold text-lg align-middle">
@@ -78,9 +78,9 @@ export default function Home() {
 
             <div
               className="bg-orange-500/30 backdrop-blur-md border border-white/10 
-              p-6 rounded-2xl w-68 h-35 shadow-md transition-all"
+              p-6 rounded-2xl w-68 h-35 shadow-md"
             >
-              <div className="flex items-center gap-5 mb-2 mt-3 ml-0">
+              <div className="flex items-center gap-5 mb-2 mt-3">
                 <span className="w-13 h-13 bg-white/15 rounded-full flex items-center justify-center">
                   <Zap className="w-7 h-7 text-white" />
                 </span>
@@ -95,28 +95,29 @@ export default function Home() {
 
       <section className="relative min-h-screen h-screen snap-start snap-always py-12 px-4 bg-black flex items-center overflow-hidden">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="mb-0">
-            <div className="inline-block bg-linear-to-r from-orange-600 via-amber-600 to-orange-500 px-4 py-1 mb-4 rounded-md">
+          <div>
+            <div className="inline-block bg-orange-600/40 px-4 py-2 mb-4 mt-4 rounded-md">
               <span className="text-white font-bold text-sm uppercase tracking-wider">
                 Categories
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white/95">
               Browse Listings By
               <br />
-              <span className="text-gray-400">Categories</span>
+              <span className="text-amber-600/90">Categories</span>
             </h2>
-            <p className="text-gray-400 text-base">
+            <p className="text-gray-400 mb-3">
               Curated by expert real estate agents!
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto">
+
             <Link
               to="/apartments"
-              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 rounded-xl h-fit"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl"
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="h-54 overflow-hidden">
                 <img
                   src="https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Apartment"
@@ -131,9 +132,9 @@ export default function Home() {
 
             <Link
               to="/villas"
-              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 rounded-xl h-fit"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl"
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="h-54 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1600252016254-f3edb5f3ae95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Farmhouse"
@@ -148,9 +149,9 @@ export default function Home() {
 
             <Link
               to="/apartments"
-              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl h-fit"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl"
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="h-54 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Condominium"
@@ -167,9 +168,9 @@ export default function Home() {
 
             <Link
               to="/villas"
-              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:border-orange-600/50 hover:shadow-2xl hover:shadow-orange-600/20 transition-all duration-300 lg:col-span-2 rounded-xl h-fit"
+              className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 lg:col-span-2 rounded-xl"
             >
-              <div className="relative h-65 overflow-hidden w-full">
+              <div className="relative h-64 overflow-hidden w-full">
                 <img
                   src="https://images.unsplash.com/photo-1571168538867-ad36fe110cc4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Bungalow"
@@ -185,17 +186,7 @@ export default function Home() {
 
             <Link
               to="/buy"
-              className="
-    group relative overflow-hidden
-    bg-white/5 
-    border border-orange-400/30 
-    backdrop-blur-md
-    hover:bg-orange-200/10
-    mt-7
-    transition-all duration-300
-    flex items-center justify-center 
-    min-h-[200px] rounded-xl h-fit
-  "
+              className="group relative overflow-hidden bg-white/5 border border-orange-400/30 backdrop-blur-md hover:bg-orange-200/10 mt-7 transition-all duration-300 flex items-center justify-center min-h-[200px] rounded-xl h-fit"
             >
               <div className="text-center py-8">
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">

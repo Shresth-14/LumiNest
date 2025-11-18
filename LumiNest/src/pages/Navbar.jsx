@@ -69,17 +69,13 @@ export default function Navbar({ user }) {
   ];
 
   const openDesktopMenu = (id) => {
-    if (hoverTimeout.current) {
-      clearTimeout(hoverTimeout.current);
-      hoverTimeout.current = null;
-    }
-    setOpenMenu(id);
-  };
+  clearTimeout(hoverTimeout.current);
+  setOpenMenu(id);
+};
 
-  const closeDesktopMenu = (delay = 150) => {
-    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-    hoverTimeout.current = setTimeout(() => setOpenMenu(null), delay);
-  };
+const closeDesktopMenu = (delay = 150) => {
+  hoverTimeout.current = setTimeout(() => setOpenMenu(null), delay);
+};
 
   useEffect(() => {
     const onDocClick = (e) => {

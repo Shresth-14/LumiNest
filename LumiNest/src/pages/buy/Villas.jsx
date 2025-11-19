@@ -65,30 +65,30 @@ export default function Villas() {
   ];
 
   const filteredVillas = villas.filter((villa) => {
-  const text = searchText.toLowerCase();
-  const searchOkay =
-    villa.title.toLowerCase().includes(text) ||
-    villa.location.toLowerCase().includes(text);
+    const text = searchText.toLowerCase();
 
-  const bhkOkay =
-    bhkFilter === "All" || villa.beds === Number(bhkFilter);
+    const searchOkay =
+      villa.title.toLowerCase().includes(text) ||
+      villa.location.toLowerCase().includes(text);
 
-  return searchOkay && bhkOkay;
-});
-const clearAllFilters = () => {
-  setBhkFilter("All");
-  setSearchText("");
-};
+    const bhkOkay = bhkFilter === "All" || villa.beds === Number(bhkFilter);
 
-let activeFiltersCount;
+    return searchOkay && bhkOkay;
+  });
 
-if (bhkFilter !== "All" || searchText !== "") {
-  activeFiltersCount =
-    (bhkFilter !== "All" ? 1 : 0) +
-    (searchText !== "" ? 1 : 0);
-} else {
-  activeFiltersCount = 0;
-}
+  const clearAllFilters = () => {
+    setBhkFilter("All");
+    setSearchText("");
+  };
+
+  let activeFiltersCount;
+
+  if (bhkFilter !== "All" || searchText !== "") {
+    activeFiltersCount =
+      (bhkFilter !== "All" ? 1 : 0) + (searchText !== "" ? 1 : 0);
+  } else {
+    activeFiltersCount = 0;
+  }
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-20 font-mono">
@@ -96,15 +96,15 @@ if (bhkFilter !== "All" || searchText !== "") {
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Luxury Villas
         </h1>
-        <span className="text-amber-600 mt-0 text-md tracking-wide">
+        <span className="text-amber-700 mt-0 text-md">
           {filteredVillas.length}
         </span>
-        <span className="mt-2 text-md tracking-wide text-amber-600">
+        <span className="mt-2 text-md tracking-wide text-amber-700">
           {" "}
           properties available
         </span>
       </div>
-      <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
+      <div className="top-16 backdrop-blur-xl border-b border-neutral-800/70">
         <div className="max-w-6xl mx-auto px-5 py-4 flex flex-wrap gap-4 items-center justify-between">
           <div className="relative flex-1 min-w-60">
             <Search
@@ -116,8 +116,7 @@ if (bhkFilter !== "All" || searchText !== "") {
               onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or location..."
               className="w-full pl-9 pr-3 py-2.5 bg-neutral-800/80 text-gray-200 placeholder-gray-500 
-                              border border-neutral-700 rounded-xl outline-none text-sm
-                              transition-all duration-200"
+                              border border-neutral-700 rounded-xl outline-none text-sm"
             />
           </div>
 
@@ -127,16 +126,26 @@ if (bhkFilter !== "All" || searchText !== "") {
               onChange={(e) => setBhkFilter(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
                               border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
-                            shadow-md transition-all duration-300"
+                            shadow-md"
             >
-              <option value="All" className="bg-neutral-900 text-gray-300">All BHK</option>
+              <option value="All" className="bg-neutral-900 text-gray-300">
+                All BHK
+              </option>
               <optgroup label="Compact" className="bg-neutral-800">
-                <option value="1" className="bg-neutral-900 text-gray-300">1 BHK</option>
-                <option value="2" className="bg-neutral-900 text-gray-300">2 BHK</option>
+                <option value="1" className="bg-neutral-900 text-gray-300">
+                  1 BHK
+                </option>
+                <option value="2" className="bg-neutral-900 text-gray-300">
+                  2 BHK
+                </option>
               </optgroup>
               <optgroup label="Spacious" className="bg-neutral-800">
-                <option value="3" className="bg-neutral-900 text-gray-300">3 BHK</option>
-                <option value="4" className="bg-neutral-900 text-gray-300">4 BHK</option>
+                <option value="3" className="bg-neutral-900 text-gray-300">
+                  3 BHK
+                </option>
+                <option value="4" className="bg-neutral-900 text-gray-300">
+                  4 BHK
+                </option>
               </optgroup>
             </select>
 
@@ -168,12 +177,16 @@ if (bhkFilter !== "All" || searchText !== "") {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {filteredVillas.length > 0 ? (
+        {filteredVillas.length === 0 ? (
+          <div className="text-center py-20 text-gray-400">
+            <p>No villas found</p>
+          </div>
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredVillas.map((villas) => (
               <Link
                 key={villas.id}
-                to={`/villas/${villas.id}`} //Temporary
+                to={`#`} //Temporary
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
               >
@@ -183,7 +196,7 @@ if (bhkFilter !== "All" || searchText !== "") {
                   className="h-48 w-full object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-1">{villas.title}</h3>
+                  <h3 className="text-md font-semibold mb-1">{villas.title}</h3>
                   <p className="text-gray-400 text-sm flex items-center gap-1 mb-3">
                     <MapPin size={14} /> {villas.location}
                   </p>
@@ -200,11 +213,11 @@ if (bhkFilter !== "All" || searchText !== "") {
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap gap-1 mb-3 text-xs text-gray-400">
+                  <div className="flex flex-wrap gap-1 my-4">
                     {villas.features.map((f, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 bg-neutral-800 rounded"
+                        className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs rounded border border-amber-500/30"
                       >
                         {f}
                       </span>
@@ -212,16 +225,14 @@ if (bhkFilter !== "All" || searchText !== "") {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold">{villas.price}</span>
-                    <span className="text-amber-600 text-sm">View →</span>
+                    <span className="text-md font-bold">{villas.price}</span>
+                    <span className="text-amber-700 hover:text-amber-600 text-sm">
+                      View →
+                    </span>
                   </div>
                 </div>
               </Link>
             ))}
-          </div>
-        ) : (
-          <div className="text-center py-20 text-gray-400">
-            <p>No villas found</p>
           </div>
         )}
       </div>

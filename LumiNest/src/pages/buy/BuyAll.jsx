@@ -178,7 +178,12 @@ const filteredProperties = allProperties.filter((property) => {
     property.title.toLowerCase().includes(text) ||
     property.location.toLowerCase().includes(text);
 
-  return matchesSearch;
+  if(matchesSearch){
+    return true;
+  }
+  else{
+    return false;
+  }
 });
 
   return (
@@ -189,12 +194,12 @@ const filteredProperties = allProperties.filter((property) => {
           Browse All Properties
         </h1>
 
-        <span className="text-amber-600 text-md">{filteredProperties.length}</span>
-        <span className="text-md text-amber-600"> properties available</span>
+        <span className="text-amber-700 text-md">{filteredProperties.length}</span>
+        <span className="text-md text-amber-700"> properties available</span>
       </div>
 
       <div className="backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-4 py-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div className="max-w-5xl mx-auto px-4 py-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center ">
           {[
             { name: 'Apartments', icon: <Building2 size={20} className="text-amber-600" />, link: '/apartments' },
             { name: 'Villas', icon: <Home size={20} className="text-purple-400" />, link: '/villas' },
@@ -204,7 +209,7 @@ const filteredProperties = allProperties.filter((property) => {
             <Link
               key={item.name}
               to={item.link}
-              className="p-4 rounded-lg border border-neutral-800 bg-neutral-900/20 hover:bg-neutral-900/40 hover:scale-[1.03] transition-all duration-300"
+              className="p-4 rounded-lg border border-amber-600/20 bg-neutral-900/20 hover:bg-neutral-900/40 hover:scale-[1.03] transition-all duration-300"
             >
               <div className="flex flex-col items-center gap-2">
                 <div className="p-1.5 bg-neutral-800/40 rounded-md">{item.icon}</div>
@@ -216,7 +221,7 @@ const filteredProperties = allProperties.filter((property) => {
         </div>
       </div>
 
-      <div className="sticky top-16 backdrop-blur-md z-10 border-b border-neutral-800/50">
+      <div className="top-16 backdrop-blur-md z-10 border-b border-neutral-800/50">
         <div className="max-w-6xl  mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between ml-59">
           <div className="relative flex-1 min-w-60">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
@@ -241,7 +246,7 @@ const filteredProperties = allProperties.filter((property) => {
             {filteredProperties.map((property) => (
               <Link
                 key={property.id}
-                to={property.link}
+                to={`#`} 
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 hover:scale-[1.02] transition-transform duration-300"
               >
@@ -264,7 +269,7 @@ const filteredProperties = allProperties.filter((property) => {
 
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold text-gray-100">{property.price}</span>
-                    <span className="text-amber-600 text-sm">View →</span>
+                    <span className="text-amber-700 hover:text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

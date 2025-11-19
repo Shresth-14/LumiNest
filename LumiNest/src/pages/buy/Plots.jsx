@@ -93,7 +93,8 @@ export default function Plots() {
     },
   ];
 
-const filteredPlots = allPlots.filter((plot) => {
+  const filteredPlots =
+    allPlots.filter((plot) => {
   const typeOkay =
     selectedType === "All" || plot.type === selectedType;
 
@@ -103,7 +104,12 @@ const filteredPlots = allPlots.filter((plot) => {
     plot.title.toLowerCase().includes(text) ||
     plot.location.toLowerCase().includes(text);
 
-  return typeOkay && searchOkay;
+  if(typeOkay && searchOkay){
+    return true;
+  }
+  else{
+    return false;
+  }
 });
 
 const clearAllFilters = () => {
@@ -128,16 +134,16 @@ if (selectedType !== "All" || searchText !== "") {
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           Plots For Sale
         </h1>
-        <span className="text-amber-600 mt-0 text-md tracking-wide">
+        <span className="text-amber-700 mt-0 text-md tracking-wide">
           {filteredPlots.length}
         </span>
-        <span className="mt-2 text-md tracking-wide text-amber-600">
+        <span className="mt-2 text-md tracking-wide text-amber-700">
           {" "}
           properties available
         </span>
       </div>
 
-      <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
+      <div className="top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
         <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between">
           <div className="relative flex-1 min-w-60">
             <Search
@@ -192,7 +198,7 @@ if (selectedType !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
+              className="px-3 py-2 text-sm text-amber-700 hover:text-amber-600 transition"
             >
               Clear All
             </button>
@@ -210,7 +216,7 @@ if (selectedType !== "All" || searchText !== "") {
             {filteredPlots.map((plot) => (
               <Link
                 key={plot.id}
-                to={`/plots/${plot.id}`} //Temporary
+                to={`#`} //Temporary
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
               >
@@ -220,7 +226,7 @@ if (selectedType !== "All" || searchText !== "") {
                   className="h-48 w-full object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-1">{plot.title}</h3>
+                  <h3 className="text-md font-semibold mb-1">{plot.title}</h3>
                   <p className="text-gray-400 text-sm flex items-center gap-1 mb-3">
                     <MapPin size={14} /> {plot.location}
                   </p>
@@ -241,8 +247,8 @@ if (selectedType !== "All" || searchText !== "") {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold">{plot.price}</span>
-                    <span className="text-amber-600 text-sm">View →</span>
+                    <span className="text-md font-bold">{plot.price}</span>
+                    <span className="text-amber-700 hover:text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

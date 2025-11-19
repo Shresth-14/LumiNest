@@ -139,15 +139,15 @@ if (status !== "All" || searchText !== "") {
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-8">
           Upcoming Properties
         </h1>
-        <span className="text-amber-600 mt-0 text-md tracking-wide">
+        <span className="text-amber-700 mt-0 text-md tracking-wide">
           {filteredProjects.length}
         </span>
-        <span className="mt-2 text-md tracking-wide text-amber-600">
+        <span className="mt-2 text-md tracking-wide text-amber-700">
           {" "}
           properties available
         </span>
       </div>
-      <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
+      <div className="=top-16 backdrop-blur-xl border-b border-neutral-800/70 shadow-lg shadow-black/20">
         <div className="max-w-6xl mx-auto px-5 py-3 flex flex-wrap gap-4 items-center justify-between">
           <div className="relative flex-1 min-w-60">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
@@ -166,7 +166,7 @@ if (status !== "All" || searchText !== "") {
               onChange={(e) => setStatus(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800 to-neutral-900 
                          border border-neutral-700 rounded-xl text-sm cursor-pointer
-                         text-gray-200 shadow-inner transition-all duration-200
+                         text-gray-200 shadow-inner
                          hover:border-neutral-600 hover:bg-neutral-800/90 
                          outline-none"
             >
@@ -212,13 +212,13 @@ if (status !== "All" || searchText !== "") {
             {filteredProjects.map((project) => (
               <Link
                 key={project.id}
-                to={`/projects/${project.id}`} //Temporary
+                to={`#`} //Temporary
                  className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
                >
                 <img src={project.image} alt={project.title} className="h-48 w-full object-cover" />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
+                  <h3 className="text-md font-semibold mb-1">{project.title}</h3>
                   <p className="text-xs text-gray-400 mb-2">by {project.builder}</p>
                   <p className="text-gray-400 text-sm flex items-center gap-1 mb-3">
                     <MapPin size={14} /> {project.location}
@@ -229,9 +229,9 @@ if (status !== "All" || searchText !== "") {
                       <span>Progress</span>
                       <span className="text-gray-300 font-medium">{project.completionPercent}%</span>
                     </div>
-                    <div className="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 mb-2 bg-neutral-800 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-amber-600 rounded-full"
+                        className="h-full bg-amber-600/70 rounded-full"
                         style={{ width: `${project.completionPercent}%` }}
                       />
                     </div>
@@ -247,7 +247,7 @@ if (status !== "All" || searchText !== "") {
                   </div>
 
                   <div className="flex flex-wrap gap-1.5 mb-3 text-xs text-gray-400">
-                    {project.amenities.map((amenity, i) => (
+                    {project.amenities.slice(0,3).map((amenity, i) => (
                       <span key={i} className="px-2 py-0.5 bg-neutral-800 rounded">
                         {amenity}
                       </span>
@@ -255,8 +255,8 @@ if (status !== "All" || searchText !== "") {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold">{project.priceRange.split(' - ')[0]}</span>
-                    <span className="text-orange-400 text-sm">View →</span>
+                    <span className="text-md font-bold">{project.priceRange.split(' - ')[0]}</span>
+                    <span className="text-amber-700 hover:text-amber-600 text-sm">View →</span>
                   </div>
                 </div>
               </Link>

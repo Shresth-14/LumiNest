@@ -1,32 +1,32 @@
 import { Home } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../config/firebaseConfig";
+import { Link } from "react-router-dom";
+// import { useState } from "react";
+// import { signInWithPopup } from "firebase/auth";
+// import { auth, googleProvider } from "../config/firebaseConfig";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const navigate = useNavigate();
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
 
   // --- Google Auth Logic ---
-  const signInWithGoogle = async () => {
-    try {
-      setLoading(true);
-      setError("");
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("User signed in:", result.user.email);
-      navigate("/");
-    } catch (error) {
-      console.error("Google Sign-in Error:", error);
-      setError(error.message || "Failed to sign in with Google");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setError("");
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     console.log("User signed in:", result.user.email);
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Google Sign-in Error:", error);
+  //     setError(error.message || "Failed to sign in with Google");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-mono relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-sans relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute -top-20 -right-20 w-56 h-56 rounded-full 
           bg-linear-to-r from-gray-500/10 via-gray-400/10 to-gray-300/10 
@@ -108,14 +108,14 @@ export default function Login() {
           <div className="grow border-t border-[#3F3F46]" />
         </div>
 
-        {error && (
+        {/* {error && (
           <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
             <p className="text-sm text-red-400">{error}</p>
           </div>
-        )}
+        )} */}
 
         {/* Google Sign-in */}
-       <div className="flex justify-center gap-5 mt-6">
+       {/* <div className="flex justify-center gap-5 mt-6">
   <button
     onClick={signInWithGoogle}
     disabled={loading}
@@ -142,7 +142,7 @@ export default function Login() {
       </>
     )}
   </button>
-</div>
+</div> */}
 
         <div className="relative flex items-center justify-center mt-6 gap-1 text-sm text-gray-400">
           <p>Don’t have an account?</p>

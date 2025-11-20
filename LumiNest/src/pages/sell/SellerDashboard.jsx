@@ -45,12 +45,7 @@ const myProperties = [
             <div className="flex gap-3">
               <button
                 onClick={() => navigate('/sell/post-property')}
-                                className="
-                  inline-flex text-end items-center gap-3
-                  px-5 py-4
-                  bg-orange-500/20 backdrop-blur-md
-                  border border-white/10
-                  text-white 
+                  className="inline-flex text-end items-center gap-3 px-5 py-4 bg-orange-500/20 backdrop-blur-mdborder border-white/1 text-white 
                   rounded-lg
                   transition-all
                   hover:bg-orange-500/30 hover:border-white/20
@@ -118,9 +113,7 @@ const myProperties = [
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* My Listings */}
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-lg font-semibold tracking-tight text-white">

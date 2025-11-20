@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../config/firebaseConfig";
+// import { signOut } from "firebase/auth";
+// import { auth } from "../config/firebaseConfig";
 import {
   User,
   LogOut,
@@ -17,25 +17,24 @@ import {
 } from "lucide-react";
 
 export default function Navbar({ user }) {
-  const [openMenu, setOpenMenu] = useState(null); 
+  const [openMenu, setOpenMenu] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSectionOpen, setMobileSectionOpen] = useState(null);
   const hoverTimeout = useRef(null);
-  const profileRef = useRef(null);
 
   // Handle logout
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      console.log("User signed out");
-      setProfileOpen(false);
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     console.log("User signed out");
+  //     setProfileOpen(false);
+  //   } catch (error) {
+  //     console.error("Logout error:", error);
+  //   }
+  // };
 
-  const menuLeft = [
+  const dropdownContent = [
     {
       id: "buy",
       title: "Buy",
@@ -67,44 +66,17 @@ export default function Navbar({ user }) {
       ],
     },
   ];
-
-  const openDesktopMenu = (id) => {
+const openDesktopMenu = (id) => {
   clearTimeout(hoverTimeout.current);
   setOpenMenu(id);
 };
 
 const closeDesktopMenu = (delay = 150) => {
-  hoverTimeout.current = setTimeout(() => setOpenMenu(null), delay);
+  hoverTimeout.current = setTimeout(() => {
+    setOpenMenu(null);
+  }, delay);
 };
 
-  useEffect(() => {
-    const onDocClick = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setProfileOpen(false);
-      }
-    };
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, []);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") {
-        setOpenMenu(null);
-        setProfileOpen(false);
-        setMobileOpen(false);
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
-
-  const handleKeyToggle = (e, id) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setOpenMenu((prev) => (prev === id ? null : id));
-    }
-  };
 
   return (
     <>
@@ -120,50 +92,58 @@ const closeDesktopMenu = (delay = 150) => {
         </div>
 
         <div className="hidden lg:flex items-center gap-6 text-gray-300 font-medium">
-          {menuLeft.map((item) => (
+          {dropdownContent.map((item) => (
             <div
               key={item.id}
               className="relative"
               onMouseEnter={() => openDesktopMenu(item.id)}
               onMouseLeave={() => closeDesktopMenu(120)}
             >
+            
               <button
-                onKeyDown={(e) => handleKeyToggle(e, item.id)}
+                
                 aria-haspopup="true"
                 aria-expanded={openMenu === item.id}
                 className="group relative flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors duration-200"
               >
                 <span>{item.icon}</span>
                 <span className="font-medium">{item.title}</span>
-                <svg 
-                  className={`w-4 h-4 transition-transform duration-200 ${openMenu === item.id ? 'rotate-180' : ''}`}
-                  style={{ animation: openMenu === item.id ? 'none' : 'chevronBounce 2s ease-in-out infinite' }}
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    openMenu === item.id ? "rotate-180" : ""
+                  }`}
+                  style={{
+                    animation:
+                      openMenu === item.id
+                        ? "none"
+                        : "chevronBounce 2s ease-in-out infinite",
+                  }}
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
+
               {openMenu === item.id && (
                 <div className="fixed top-16 left-0 w-screen z-40 pointer-events-auto">
-                  
                   <div
                     className="relative w-full"
-                    style={{ 
-                      animation: "fadeIn 0.2s ease-out"
-                    }}
-                    onMouseEnter={() => {
-                      if (hoverTimeout.current) {
-                        clearTimeout(hoverTimeout.current);
-                        hoverTimeout.current = null;
-                      }
-                    }}
+                    style={{ animation: "fadeIn 0.2s ease-out" }}
+                    onMouseEnter={() => clearTimeout(hoverTimeout.current)}
                     onMouseLeave={() => closeDesktopMenu(100)}
                   >
+                    {/* Dropdown Content */}
                     <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 bg-[rgba(12,12,12,0.98)] border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        {/* Left Column */}
                         <div className="md:col-span-4">
                           <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">
                             {item.title} Categories
@@ -177,10 +157,12 @@ const closeDesktopMenu = (delay = 150) => {
                                 className="group px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                               >
                                 <div className="flex items-center justify-between">
-                                  <span className="group-hover:text-white transition-colors">{l.label}</span>
-                                  <ChevronRight 
-                                    size={14} 
-                                    className="text-gray-500 opacity-0 group-hover:opacity-100 group-hover:text-gray-300 transition-all duration-200" 
+                                  <span className="group-hover:text-white transition-colors">
+                                    {l.label}
+                                  </span>
+                                  <ChevronRight
+                                    size={14}
+                                    className="text-gray-500 opacity-0 group-hover:opacity-100 group-hover:text-gray-300 transition-all duration-200"
                                   />
                                 </div>
                               </Link>
@@ -189,7 +171,9 @@ const closeDesktopMenu = (delay = 150) => {
                         </div>
 
                         <div className="md:col-span-5">
-                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">Featured Options</h4>
+                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">
+                            Featured Options
+                          </h4>
                           <div className="grid grid-cols-2 gap-2.5">
                             {item.links.map((l) => (
                               <Link
@@ -198,17 +182,28 @@ const closeDesktopMenu = (delay = 150) => {
                                 onClick={() => setOpenMenu(null)}
                                 className="group p-3.5 rounded-lg bg-white/3 hover:bg-white/6 transition-colors duration-200 text-sm text-gray-200 border border-transparent hover:border-white/10"
                               >
-                                <div className="font-medium group-hover:text-white transition-colors">{l.label}</div>
+                                <div className="font-medium group-hover:text-white transition-colors">
+                                  {l.label}
+                                </div>
                                 <div className="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
-                                  {l.label === 'Apartments' && 'Modern living spaces'}
-                                  {l.label === 'Villas' && 'Luxury properties'}
-                                  {l.label === 'Plots' && 'Investment opportunities'}
-                                  {l.label === 'New Projects' && 'Under construction'}
-                                  {l.label === 'Post Property' && 'List your property'}
-                                  {l.label === 'My Dashboard' && 'View your Dashboard'}
-                                  {l.label === 'Homes for Rent' && 'Residential rentals'}
-                                  {l.label === 'Commercial Spaces' && 'Office & retail'}
-                                  {l.label === 'PG & Shared' && 'Shared accommodations'}
+                                  {l.label === "Apartments" &&
+                                    "Modern living spaces"}
+                                  {l.label === "Villas" &&
+                                    "Luxury properties"}
+                                  {l.label === "Plots" &&
+                                    "Investment opportunities"}
+                                  {l.label === "New Projects" &&
+                                    "Under construction"}
+                                  {l.label === "Post Property" &&
+                                    "List your property"}
+                                  {l.label === "My Dashboard" &&
+                                    "View your Dashboard"}
+                                  {l.label === "Homes for Rent" &&
+                                    "Residential rentals"}
+                                  {l.label === "Commercial Spaces" &&
+                                    "Office & retail"}
+                                  {l.label === "PG & Shared" &&
+                                    "Shared accommodations"}
                                 </div>
                               </Link>
                             ))}
@@ -218,15 +213,21 @@ const closeDesktopMenu = (delay = 150) => {
                               className="group p-3.5 rounded-lg bg-white/5 hover:bg-white/8 transition-colors duration-200 text-sm text-gray-200 border border-white/10 hover:border-white/20 col-span-2"
                             >
                               <div className="text-center">
-                                <div className="font-semibold group-hover:text-white transition-colors">View All {item.title}</div>
-                                <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-300 transition-colors">Browse complete collection</div>
+                                <div className="font-semibold group-hover:text-white transition-colors">
+                                  View All {item.title}
+                                </div>
+                                <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-300 transition-colors">
+                                  Browse complete collection
+                                </div>
                               </div>
                             </Link>
                           </div>
                         </div>
 
                         <div className="md:col-span-3">
-                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">Quick Actions</h4>
+                          <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase tracking-wider">
+                            Quick Actions
+                          </h4>
                           <div className="flex flex-col gap-2.5">
                             <Link
                               to="/contact"
@@ -234,11 +235,23 @@ const closeDesktopMenu = (delay = 150) => {
                               className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                             >
                               <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                <svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                  />
                                 </svg>
                               </div>
-                              <span className="group-hover:text-white transition-colors">Contact Sales</span>
+                              <span className="group-hover:text-white transition-colors">
+                                Contact Sales
+                              </span>
                             </Link>
                             <Link
                               to="/help"
@@ -246,11 +259,23 @@ const closeDesktopMenu = (delay = 150) => {
                               className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm text-gray-200"
                             >
                               <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/8 flex items-center justify-center transition-colors">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                  />
                                 </svg>
                               </div>
-                              <span className="group-hover:text-white transition-colors">Help Center</span>
+                              <span className="group-hover:text-white transition-colors">
+                                Help Center
+                              </span>
                             </Link>
                           </div>
 
@@ -260,22 +285,34 @@ const closeDesktopMenu = (delay = 150) => {
                               onClick={() => setOpenMenu(null)}
                               className="group inline-flex items-center justify-center w-full gap-2 px-5 py-2.5 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold transition-colors duration-200"
                             >
-                              <span>{item.title === "Sell" ? "List a Property" : `Explore ${item.title}`}</span>
-                              <ChevronRight 
-                                size={16} 
-                                className="group-hover:translate-x-1 transition-transform duration-200" 
+                              <span>
+                                {item.title === "Sell"
+                                  ? "List a Property"
+                                  : `Explore ${item.title}`}
+                              </span>
+                              <ChevronRight
+                                size={16}
+                                className="group-hover:translate-x-1 transition-transform duration-200"
                               />
                             </Link>
                           </div>
 
                           <div className="mt-4 grid grid-cols-2 gap-2.5">
                             <div className="text-center p-2.5 rounded-lg bg-white/5">
-                              <div className="text-lg font-bold text-white">500+</div>
-                              <div className="text-xs text-gray-400">Properties</div>
+                              <div className="text-lg font-bold text-white">
+                                500+
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                Properties
+                              </div>
                             </div>
                             <div className="text-center p-2.5 rounded-lg bg-white/5">
-                              <div className="text-lg font-bold text-white">50+</div>
-                              <div className="text-xs text-gray-400">Cities</div>
+                              <div className="text-lg font-bold text-white">
+                                50+
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                Cities
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -294,6 +331,7 @@ const closeDesktopMenu = (delay = 150) => {
           ))}
         </div>
 
+        {/* Right Section */}
         <div className="flex items-center gap-3">
           <Link
             to="/contact"
@@ -302,6 +340,7 @@ const closeDesktopMenu = (delay = 150) => {
             Contact
           </Link>
 
+          {/* LOGIN OR PROFILE MENU */}
           {!user ? (
             <Link
               to="/login"
@@ -310,16 +349,19 @@ const closeDesktopMenu = (delay = 150) => {
               Login
             </Link>
           ) : (
-            <div className="relative" ref={profileRef}>
+            <div
+              className="relative"
+              onMouseEnter={() => setProfileOpen(true)}
+              onMouseLeave={() => setProfileOpen(false)}
+            >
               <button
-                onClick={() => setProfileOpen((p) => !p)}
                 aria-expanded={profileOpen}
                 className="focus:outline-none focus:ring-2 focus:ring-white/20 rounded-full transition-all hover:ring-2 hover:ring-white/10"
               >
                 {user?.photoURL ? (
-                  <img 
-                    src={user.photoURL} 
-                    alt="Profile" 
+                  <img
+                    src={user.photoURL}
+                    alt="Profile"
                     className="w-9 h-9 rounded-full object-cover cursor-pointer border-2 border-neutral-700 hover:border-neutral-600 transition-all"
                   />
                 ) : (
@@ -329,6 +371,7 @@ const closeDesktopMenu = (delay = 150) => {
                 )}
               </button>
 
+              {/* Profile Dropdown */}
               {profileOpen && (
                 <div
                   role="menu"
@@ -338,9 +381,9 @@ const closeDesktopMenu = (delay = 150) => {
                   <div className="px-4 py-3 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
                       {user?.photoURL ? (
-                        <img 
-                          src={user.photoURL} 
-                          alt="Profile" 
+                        <img
+                          src={user.photoURL}
+                          alt="Profile"
                           className="w-10 h-10 rounded-full object-cover"
                         />
                       ) : (
@@ -349,8 +392,12 @@ const closeDesktopMenu = (delay = 150) => {
                         </div>
                       )}
                       <div>
-                        <div className="text-sm text-white font-medium">{user?.displayName || 'User'}</div>
-                        <div className="text-xs text-gray-400">{user?.email}</div>
+                        <div className="text-sm text-white font-medium">
+                          {user?.displayName || "User"}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {user?.email}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -398,7 +445,7 @@ const closeDesktopMenu = (delay = 150) => {
                     </Link>
 
                     <button
-                      onClick={handleLogout}
+                      // onClick={handleLogout}
                       className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition"
                     >
                       <div className="flex items-center gap-3">
@@ -432,9 +479,9 @@ const closeDesktopMenu = (delay = 150) => {
 
       <aside
         className={`fixed top-0 right-0 h-full z-50 w-[92%] max-w-[420px]
-                    bg-[rgba(10,10,10,0.98)] border-l border-neutral-800 shadow-[ -20px 0 60px rgba(0,0,0,0.7) ]
-                    transform transition-transform duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
-                    ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
+                bg-[rgba(10,10,10,0.98)] border-l border-neutral-800 shadow-[ -20px 0 60px rgba(0,0,0,0.7) ]
+                transform transition-transform duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+                ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!mobileOpen}
         aria-label="Mobile menu"
       >
@@ -442,39 +489,51 @@ const closeDesktopMenu = (delay = 150) => {
           <Link to="/" className="text-xl font-semibold text-white">
             LumiNest
           </Link>
-          <div className="flex items-center gap-2">
-            <button
-              className="p-2 rounded-md bg-neutral-800/50 hover:bg-neutral-700 transition"
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close"
-            >
-              <X className="text-gray-200" size={18} />
-            </button>
-          </div>
+          <button
+            className="p-2 rounded-md bg-neutral-800/50 hover:bg-neutral-700 transition"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close"
+          >
+            <X className="text-gray-200" size={18} />
+          </button>
         </div>
 
         <div className="p-4 space-y-4 overflow-auto h-[calc(100%-64px)]">
           <div className="space-y-3">
-            {menuLeft.map((section) => {
+            {dropdownContent.map((section) => {
               const open = mobileSectionOpen === section.id;
+
               return (
-                <div key={section.id} className="border border-neutral-800 rounded-lg overflow-hidden">
+                <div
+                  key={section.id}
+                  className="border border-neutral-800 rounded-lg overflow-hidden"
+                >
                   <button
-                    onClick={() => setMobileSectionOpen((s) => (s === section.id ? null : section.id))}
+                    onClick={() =>
+                      setMobileSectionOpen((s) =>
+                        s === section.id ? null : section.id
+                      )
+                    }
                     className="w-full flex items-center justify-between px-4 py-3 bg-[rgba(11,11,11,0.9)] hover:bg-[rgba(15,15,15,0.95)] transition"
                     aria-expanded={open}
                   >
                     <div className="flex items-center gap-3">
                       <div className="text-gray-300">{section.icon}</div>
                       <div>
-                        <div className="text-sm text-gray-200 font-medium">{section.title}</div>
-                        <div className="text-xs text-gray-500">Explore {section.title}</div>
+                        <div className="text-sm text-gray-200 font-medium">
+                          {section.title}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Explore {section.title}
+                        </div>
                       </div>
                     </div>
 
                     <ChevronRight
                       size={18}
-                      className={`text-gray-400 transform transition-transform duration-200 ${open ? "rotate-90" : "rotate-0"}`}
+                      className={`text-gray-400 transform transition-transform duration-200 ${
+                        open ? "rotate-90" : "rotate-0"
+                      }`}
                     />
                   </button>
 
@@ -492,9 +551,14 @@ const closeDesktopMenu = (delay = 150) => {
                             className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-white/5 transition-colors text-gray-200"
                           >
                             <div>
-                              <div className="text-sm font-medium">{l.label}</div>
+                              <div className="text-sm font-medium">
+                                {l.label}
+                              </div>
                             </div>
-                            <ChevronRight size={14} className="text-gray-400" />
+                            <ChevronRight
+                              size={14}
+                              className="text-gray-400"
+                            />
                           </Link>
                         ))}
 
@@ -507,7 +571,9 @@ const closeDesktopMenu = (delay = 150) => {
                             }}
                             className="block text-center px-4 py-3 rounded-md bg-white/8 text-white font-semibold hover:bg-white/16 transition"
                           >
-                            {section.title === "Sell" ? "List a Property" : `Explore ${section.title}`}
+                            {section.title === "Sell"
+                              ? "List a Property"
+                              : `Explore ${section.title}`}
                           </Link>
                         </div>
                       </div>
@@ -521,9 +587,9 @@ const closeDesktopMenu = (delay = 150) => {
           <div className="pt-4 border-t border-neutral-800">
             <div className="flex items-center gap-3">
               {user?.photoURL ? (
-                <img 
-                  src={user.photoURL} 
-                  alt="Profile" 
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
                   className="w-12 h-12 rounded-full object-cover"
                 />
               ) : (
@@ -532,20 +598,42 @@ const closeDesktopMenu = (delay = 150) => {
                 </div>
               )}
               <div>
-                <div className="text-sm text-white font-medium">{user ? user.displayName || 'User' : "Guest User"}</div>
-                <div className="text-xs text-gray-400">{user ? user.email : "Not logged in"}</div>
+                <div className="text-sm text-white font-medium">
+                  {user ? user.displayName || "User" : "Guest User"}
+                </div>
+                <div className="text-xs text-gray-400">
+                  {user ? user.email : "Not logged in"}
+                </div>
               </div>
             </div>
 
             <div className="mt-4 space-y-2">
               {user ? (
                 <>
-                  <Link onClick={() => setMobileOpen(false)} to="/listings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">My Listings</Link>
-                  <Link onClick={() => setMobileOpen(false)} to="/favorites" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Favorites</Link>
-                  <Link onClick={() => setMobileOpen(false)} to="/settings" className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Settings</Link>
+                  <Link
+                    onClick={() => setMobileOpen(false)}
+                    to="/listings"
+                    className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200"
+                  >
+                    My Listings
+                  </Link>
+                  <Link
+                    onClick={() => setMobileOpen(false)}
+                    to="/favorites"
+                    className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200"
+                  >
+                    Favorites
+                  </Link>
+                  <Link
+                    onClick={() => setMobileOpen(false)}
+                    to="/settings"
+                    className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200"
+                  >
+                    Settings
+                  </Link>
                   <button
                     onClick={() => {
-                      handleLogout();
+                      // handleLogout();
                       setMobileOpen(false);
                     }}
                     className="w-full text-left px-4 py-3 rounded-md text-red-400 hover:bg-red-500/10"
@@ -555,8 +643,20 @@ const closeDesktopMenu = (delay = 150) => {
                 </>
               ) : (
                 <>
-                  <Link to="/login" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Login</Link>
-                  <Link to="/signup" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200">Create account</Link>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-md hover:bg-white/5 text-gray-200"
+                  >
+                    Create account
+                  </Link>
                 </>
               )}
             </div>

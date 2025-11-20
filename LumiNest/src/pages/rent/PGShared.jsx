@@ -144,7 +144,12 @@ const filteredPGs = allPGs.filter((pg) => {
     pg.title.toLowerCase().includes(text) ||
     pg.location.toLowerCase().includes(text);
 
-  return roomTypeOkay && genderOkay && searchOkay;
+  if(roomTypeOkay && genderOkay && searchOkay){
+    return true;
+  }
+  else{
+    return false;
+  }
 });
 
 const clearAllFilters = () => {
@@ -171,11 +176,11 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
         <h1 className="text-6xl font-extrabold bg-linear-to-r from-gray-100 to-gray-200 bg-clip-text text-transparent tracking-tight mb-5">
           PG & Shared Accommodations
         </h1>
-        <span className="text-amber-600 text-md tracking-wide">{filteredPGs.length}</span>
-        <span className="text-md tracking-wide text-amber-600"> options available</span>
+        <span className="text-amber-700 text-md tracking-wide">{filteredPGs.length}</span>
+        <span className="text-md tracking-wide text-amber-700"> options available</span>
       </div>
 
-      <div className="sticky top-16 backdrop-blur-xl border-b border-neutral-800/70">
+      <div className="top-16 backdrop-blur-xl border-b border-neutral-800/70">
         <div className="max-w-6xl mx-auto px-5 py-4 flex flex-wrap gap-4 items-center justify-between">
           <div className="relative flex-1 min-w-60">
             <Search className="absolute inset-y-0 left-3 my-auto text-gray-400" size={16} />
@@ -185,7 +190,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               className="w-full pl-9 pr-3 py-2.5 bg-neutral-800/80 text-gray-200 placeholder-gray-500 
-                         border border-neutral-700 rounded-xl outline-none text-sm transition-all duration-200"
+                         border border-neutral-700 rounded-xl outline-none text-sm"
             />
           </div>
 
@@ -195,7 +200,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
               onChange={(e) => setRoomType(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
                          border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
-                         shadow-md transition-all duration-300"
+                         shadow-md"
             >
               <option value="All" className="bg-neutral-900 text-gray-300">All Rooms</option>
               <optgroup label="Private" className="bg-neutral-800">
@@ -217,7 +222,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
               onChange={(e) => setGender(e.target.value)}
               className="appearance-none w-full px-4 py-2.5 bg-linear-to-b from-neutral-800/90 to-neutral-900/90 
                          border border-neutral-700 rounded-xl text-sm cursor-pointer text-gray-200 
-                         shadow-md transition-all duration-300"
+                         shadow-md"
             >
               <option value="All" className="bg-neutral-900 text-gray-300">All Genders</option>
               <option value="Male" className="bg-neutral-900 text-gray-300">Male</option>
@@ -232,7 +237,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="px-3 py-2 text-sm text-amber-600 hover:text-amber-500 transition"
+              className="px-3 py-2 text-sm text-amber-700 hover:text-amber-600 transition"
             >
               Clear All
             </button>
@@ -250,13 +255,13 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
             {filteredPGs.map((pg) => (
               <Link
                 key={pg.id}
-                to={`/rent/pg/${pg.id}`}
+                to={`#`}
                 className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden 
                            hover:border-neutral-700 transition-all duration-200 hover:scale-[1.02]"
               >
                 <img src={pg.image} alt={pg.title} className="h-48 w-full object-cover" />
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-1">{pg.title}</h3>
+                  <h3 className="text-md font-semibold mb-1">{pg.title}</h3>
                   <p className="text-gray-400 text-sm flex items-center gap-1 mb-3">
                     <MapPin size={14} /> {pg.location}
                   </p>
@@ -282,7 +287,7 @@ if (RoomType !== "All" || Gender !== "All" || searchText !== "") {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold">{pg.rent}</span>
+                    <span className="text-md font-bold">{pg.rent}</span>
                     <span className="text-amber-600 text-sm">View →</span>
                   </div>
                 </div>

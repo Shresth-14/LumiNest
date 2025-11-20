@@ -91,7 +91,6 @@ export default function PostProperty() {
             </div>
           </div>
 
-          {/* Basic Details */}
           <div className="bg-neutral-900/30 rounded-lg p-4 border border-neutral-800/30">
             <h2 className="text-sm font-medium text-white mb-3">Basic Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">

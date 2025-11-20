@@ -40,10 +40,10 @@ export default function Home() {
             <Link
               to="/apartments"
               className="inline-flex items-center gap-3 px-8 py-4 
-  bg-orange-500/20 backdrop-blur-md border border-white/10
-  text-white font-semibold rounded-lg transition-all 
-  hover:bg-orange-500/30 hover:border-white/20
-  no-underline"
+              bg-orange-500/20 backdrop-blur-md border border-white/10
+              text-white font-semibold rounded-lg transition-all 
+              hover:bg-orange-500/30 hover:border-white/20
+              no-underline"
             >
               <span>Start Building</span>
               <ArrowRight
@@ -53,7 +53,7 @@ export default function Home() {
             </Link>
           </div>
 
-         <div className="absolute right-8 inset-y-0 my-auto space-y-4 hidden lg:flex flex-col justify-center">
+          <div className="absolute right-8 inset-y-0 my-auto space-y-4 hidden lg:flex flex-col justify-center">
             <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl w-68 h-25 shadow-2xl border border-white/20 hover:bg-white/20 transition-all items-center justify-center">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-white font-bold text-lg align-middle">
@@ -112,7 +112,6 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto">
-
             <Link
               to="/apartments"
               className="group relative overflow-hidden bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 transition-all duration-300 rounded-xl"
@@ -203,8 +202,8 @@ export default function Home() {
       <section className="snap-start pt-20 pb-18 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+            {stats.map((stat, i) => (
+              <div key={i} className="text-center">
                 <div className="text-5xl md:text-6xl font-bold mb-3 bg-linear-to-br from-orange-600 via-amber-600 to-orange-500 bg-clip-text text-transparent">
                   {stat.value}
                 </div>
@@ -272,7 +271,7 @@ export default function Home() {
           <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]">
             Ready to Find Your
             <br />
-            <span className="text-transparent bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text">
+            <span className="text-transparent bg-linear-to-r from-gray-300 to-gray-500 bg-clip-text">
               Dream Home?
             </span>
           </h2>
@@ -286,11 +285,11 @@ export default function Home() {
             <Link
               to="/apartments"
               className="inline-flex items-center gap-3 px-8 py-4 
-  bg-orange-500/20 backdrop-blur-md border border-white/10
-  text-white font-semibold rounded-lg transition-all 
-  hover:bg-orange-500/30 hover:border-white/20
-  no-underline"
-            >
+                        bg-orange-500/20 backdrop-blur-md border border-white/10
+                        text-white font-semibold rounded-lg transition-all 
+                        hover:bg-orange-500/30 hover:border-white/20
+                        no-underline"
+                        >
               Browse Properties
             </Link>
 

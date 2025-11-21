@@ -3,7 +3,7 @@
 html {
   scroll-behavior: smooth;
 }
-.input-box {
+/* .input-box {
   @apply w-full px-4 py-2.5 bg-neutral-800/60 border border-neutral-700 rounded-lg text-gray-200 placeholder:text-gray-500 focus:border-blue-500/50 outline-none transition;
 }
 @keyframes fadeIn {
@@ -13,4 +13,4 @@ html {
 
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
-}
+} */

@@ -121,7 +121,7 @@ const savedProperties = [
                       className="w-24 h-24 rounded-lg object-cover"
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-semibold text-white mb-1 truncate group-hover:text-neutral-300 transition-colors">
+                      <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-neutral-300 transition-colors">
                         {property.title}
                       </h3>
                       <p className="text-xs text-neutral-400 flex items-center gap-1 mb-2">

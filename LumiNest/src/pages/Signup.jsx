@@ -1,28 +1,8 @@
 import { Home } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { useState } from "react";
-// import { signInWithPopup } from "firebase/auth";
-// import { auth, googleProvider } from "../config/firebaseConfig";
 
 export default function Signup() {
-  // const navigate = useNavigate();
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState("");
 
-  // const signInWithGoogle = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setError("");
-  //     const result = await signInWithPopup(auth, googleProvider);
-  //     console.log("User signed up:", result.user.email);
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("Google Sign-up Error:", error);
-  //     setError(error.message || "Failed to sign up with Google");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-sans relative overflow-hidden">
@@ -110,42 +90,6 @@ export default function Signup() {
           <span className="mx-3 text-xs text-[#A1A1AA]">Or continue with</span>
           <div className="grow border-t border-[#3F3F46]" />
         </div>
-
-        {/* {error && (
-          <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-            <p className="text-sm text-red-400">{error}</p>
-          </div>
-        )} */}
-
-        {/* Google Sign-up */}
-        {/* <div className="flex justify-center gap-5 mt-6">
-          <button
-            onClick={signInWithGoogle}
-            disabled={loading}
-            className="flex items-center justify-center gap-3 w-60 h-12 rounded-lg 
-            border border-white/20 bg-white/5 backdrop-blur-sm 
-            text-white font-medium shadow-sm 
-            hover:bg-white/10 hover:border-white/30 hover:shadow-md 
-            active:scale-95 transition-all duration-200 ease-out
-            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white/5"
-          >
-            {loading ? (
-              <>
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span className="text-sm tracking-wide">Signing up...</span>
-              </>
-            ) : (
-              <>
-                <img
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt="Google"
-                  className="w-5 h-5"
-                />
-                <span className="text-sm tracking-wide">Sign up with Google</span>
-              </>
-            )}
-          </button>
-        </div> */}
 
         <div className="relative flex items-center justify-center mt-6 gap-1 text-sm text-gray-400">
           <p>Already have an account?</p>

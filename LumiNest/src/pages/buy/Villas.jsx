@@ -73,7 +73,11 @@ export default function Villas() {
 
     const bhkOkay = bhkFilter === "All" || villa.beds === Number(bhkFilter);
 
-    return searchOkay && bhkOkay;
+    if(searchOkay && bhkOkay){
+      return true;
+    }else{
+      return false;
+    }
   });
 
   const clearAllFilters = () => {

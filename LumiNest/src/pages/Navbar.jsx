@@ -75,9 +75,7 @@ export default function Navbar() {
                 {item.icon}
                 <span className="font-medium">{item.title}</span>
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    openMenu === item.id ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition-transform duration-300 ${openMenu === item.id ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -97,7 +95,6 @@ export default function Navbar() {
                       border-t border-neutral-800/60 backdrop-blur-xl rounded-b-2xl shadow-2xl"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                      {/* Column 1 */}
                       <div className="md:col-span-4">
                         <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase">
                           {item.title} Categories
@@ -122,7 +119,6 @@ export default function Navbar() {
                         </nav>
                       </div>
 
-                      {/* Column 2 */}
                       <div className="md:col-span-5">
                         <h4 className="text-sm text-gray-400 font-semibold mb-3 uppercase">
                           Featured Options
@@ -133,7 +129,7 @@ export default function Navbar() {
                               key={`feature-${l.label}`}
                               to={l.to}
                               onClick={() => setOpenMenu(null)}
-                              className="group p-3.5 rounded-lg bg-white/3 hover:bg-white/6 transition"
+                              className="group p-3.5 rounded-lg bg-white/3 hover:bg-white/6 "
                             >
                               <div className="font-medium">
                                 {l.label}
@@ -149,7 +145,7 @@ export default function Navbar() {
                       <div className="md:col-span-3 space-y-3">
                         <Link
                           to="/contact"
-                          className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition"
+                          className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 "
                         >
                           <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                             <Phone size={16} className="text-gray-300" />
@@ -159,7 +155,7 @@ export default function Navbar() {
 
                         <Link
                           to="/help"
-                          className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 transition"
+                          className="group flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-white/5 "
                         >
                           <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                             <HelpCircle size={16} className="text-gray-300" />
@@ -169,7 +165,7 @@ export default function Navbar() {
 
                         <Link
                           to="/login"
-                          className="group inline-flex items-center justify-center w-full gap-2 px-5 py-2.5 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold transition"
+                          className="group inline-flex items-center justify-center w-full gap-2 px-5 py-2.5 rounded-lg bg-white/8 hover:bg-white/12 text-white text-sm font-semibold "
                         >
                           Explore {item.title}
                           <ChevronRight size={16} />
@@ -191,14 +187,14 @@ export default function Navbar() {
     <div className="flex items-center gap-3">
           <Link
             to="/contact"
-            className="hidden sm:inline text-sm text-gray-300 hover:text-white transition"
+            className="hidden sm:inline text-sm text-gray-300 hover:text-white "
           >
             Contact
           </Link>
 
           <Link
             to="/login"
-            className="px-3 py-1 rounded-md bg-white/6 text-white text-sm font-medium hover:bg-white/12 transition"
+            className="px-3 py-1 rounded-md bg-white/6 text-white text-sm font-medium hover:bg-white/12 "
           >
             Login
           </Link>
@@ -232,7 +228,7 @@ export default function Navbar() {
           </Link>
 
           <button
-            className="p-2 rounded-md bg-neutral-800/50 hover:bg-neutral-700 transition"
+            className="p-2 rounded-md bg-neutral-800/50 hover:bg-neutral-700"
             onClick={() => setMobileOpen(false)}
           >
             <X size={18} className="text-gray-200" />
@@ -252,7 +248,7 @@ export default function Navbar() {
                   onClick={() =>
                     setMobileSectionOpen(open ? null : section.id)
                   }
-                  className="w-full flex items-center justify-between px-4 py-3 bg-[rgba(11,11,11,0.9)] hover:bg-[rgba(15,15,15,0.95)] transition"
+                  className="w-full flex items-center justify-between px-4 py-3 bg-[rgba(11,11,11,0.9)] hover:bg-[rgba(15,15,15,0.95)] "
                 >
                   <div className="flex items-center gap-3">
                     {section.icon}

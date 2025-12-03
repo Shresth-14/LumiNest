@@ -18,6 +18,7 @@ export default function Dashboard() {
               Choose your role to get started
             </p>
           </div>
+          
           {/* //BUYER CARD */}
           <div className="grid md:grid-cols-2 gap-10">
             <button

@@ -1,8 +1,11 @@
-import React from "react";
-import { ArrowRight, Zap } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ArrowRight, Zap, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const mainRef = useRef(null);
+
   const stats = [
     { value: "500+", label: "Properties Listed" },
     { value: "200+", label: "Happy Clients" },
@@ -10,8 +13,20 @@ export default function Home() {
     { value: "15+", label: "Years Experience" },
   ];
 
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+
+    const handleScroll = () => setShowScrollTop(main.scrollTop > 300);
+    
+    main.addEventListener('scroll', handleScroll);
+    return () => main.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+
   return (
-    <main className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white font-sans">
+    <main ref={mainRef} className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white font-sans">
       <section className="relative min-h-screen h-screen snap-start snap-always pt-20 pb-16 flex items-center">
         <div className="absolute inset-0">
           <img
@@ -420,6 +435,14 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-white/20 backdrop-blur-lg border border-white/30 flex items-center justify-center hover:bg-white/30 hover:scale-105 transition-all duration-300 z-50"
+        >
+          <ChevronUp size={20} className="text-white" />
+        </button>
+      )}
     </main>
   );
 }

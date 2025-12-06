@@ -1,8 +1,34 @@
 import { Home } from "lucide-react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+        setEmailError("");
+    setPasswordError("");
+    
+    let isValid = true;
+    
+    if (!email.includes("@") || !email.includes(".com")) {
+      setEmailError("Enter correct email");
+      isValid = false;
+    }
+    
+    if (password.length < 8) {
+      setPasswordError("Enter correct password length");
+      isValid = false;
+    }
+      if (isValid) {
+      navigate("/sell/dashboard");
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white font-sans relative overflow-hidden">
@@ -40,7 +66,7 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="flex flex-col mt-7">
+        <form onSubmit={handleSubmit} className="flex flex-col mt-7">
           <label htmlFor="email" className="mb-2 text-sm font-medium text-gray-300">
             Email
           </label>
@@ -49,8 +75,11 @@ export default function Login() {
             name="email"
             id="email"
             placeholder="abc@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-3 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
+          {emailError && <p className="text-red-400 text-xs mt-1">{emailError}</p>}
 
           <div className="flex items-center justify-between mt-9 mb-2">
             <label htmlFor="password" className="text-sm font-medium text-gray-300">
@@ -66,19 +95,23 @@ export default function Login() {
             name="password"
             id="password"
             placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-3 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
-        </div>
+          {passwordError && <p className="text-red-400 text-xs mt-1">{passwordError}</p>}
 
-      <button
-          className="w-full mt-9 h-11 rounded-lg border border-[#3F3F46]/30 
-          bg-linear-to-b from-[#FAFAFA] to-[#E4E4E7] 
-          text-[#18181B] font-semibold shadow-sm hover:shadow-md
-          hover:from-[#EDEDED] hover:to-[#D4D4D8] 
-          active:scale-95 transition-all duration-200 ease-out"
-        >
-          Login
-        </button>
+          <button
+            type="submit"
+            className="w-full mt-9 h-11 rounded-lg border border-[#3F3F46]/30 
+            bg-linear-to-b from-[#FAFAFA] to-[#E4E4E7] 
+            text-[#18181B] font-semibold shadow-sm hover:shadow-md
+            hover:from-[#EDEDED] hover:to-[#D4D4D8] 
+            active:scale-95 transition-all duration-200 ease-out"
+          >
+            Login
+          </button>
+        </form>
 
 
         <div className="relative flex items-center mt-5">

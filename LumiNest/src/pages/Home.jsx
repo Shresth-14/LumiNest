@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const mainRef = useRef(null);
 
   const stats = [
     { value: "500+", label: "Properties Listed" },
@@ -13,20 +12,28 @@ export default function Home() {
     { value: "15+", label: "Years Experience" },
   ];
 
-  useEffect(() => {
-    const main = mainRef.current;
-    if (!main) return;
+useEffect(() => {
+  const main = document.querySelector("main");
+  if (!main) return;
 
-    const handleScroll = () => setShowScrollTop(main.scrollTop > 300);
-    
-    main.addEventListener('scroll', handleScroll);
-    return () => main.removeEventListener('scroll', handleScroll);
-  }, []);
+  const onScroll = () => {
+    setShowScrollTop(main.scrollTop > 300);
+  };
 
-  const scrollToTop = () => mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  main.addEventListener("scroll", onScroll);
+
+  return () => main.removeEventListener("scroll", onScroll);
+}, []);
+
+const scrollToTop = () => {
+  const main = document.querySelector("main");
+  main?.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+
 
   return (
-    <main ref={mainRef} className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white font-sans">
+    <main className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white font-sans">
       <section className="relative min-h-screen h-screen snap-start snap-always pt-20 pb-16 flex items-center">
         <div className="absolute inset-0">
           <img
